@@ -21,7 +21,8 @@
     "test:dev": "tsx scripts/run-api.ts dev",
     "test:prod": "tsx scripts/run-api.ts prod",
     "test:isolation": "tsx scripts/run-api.ts isolation",
-    "test:list": "playwright test --list"
+    "test:list": "playwright test --list",
+    "scrub": "tsx scripts/scrub.ts"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
