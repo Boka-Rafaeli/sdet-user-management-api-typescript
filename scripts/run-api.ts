@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process';
+import { spawn, type ChildProcess } from 'node:child_process';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
@@ -18,20 +18,33 @@ const reportRoot = process.env.REPORT_ROOT ?? join('reports/generated', scope);
 await mkdir(reportRoot, { recursive: true });
 let api: ManagedApi | undefined;
 let interrupted = false;
+let activeChild: ChildProcess | undefined;
 for (const signal of ['SIGINT', 'SIGTERM'] as const)
   process.once(signal, () => {
     interrupted = true;
-    void api?.stop().finally(() => process.exit(signal === 'SIGINT' ? 130 : 143));
+    activeChild?.kill(signal);
   });
 const run = (args: string[], env: NodeJS.ProcessEnv) =>
   new Promise<number>((resolve) => {
+    if (interrupted) {
+      resolve(1);
+      return;
+    }
     const child = spawn(process.execPath, args, { env, stdio: 'inherit' });
-    child.on('error', () => resolve(1));
-    child.on('exit', (code) => resolve(code ?? 1));
+    activeChild = child;
+    child.on('error', () => {
+      activeChild = undefined;
+      resolve(1);
+    });
+    child.on('exit', (code) => {
+      activeChild = undefined;
+      resolve(code ?? 1);
+    });
   });
 let status = 1;
 try {
   if (!process.env.BASE_URL) api = await startApi();
+  if (interrupted) throw new Error('API execution interrupted');
   const env = {
     ...process.env,
     BASE_URL: api?.baseUrl ?? settings.baseUrl,

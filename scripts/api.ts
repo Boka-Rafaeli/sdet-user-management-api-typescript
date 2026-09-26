@@ -11,8 +11,16 @@ if (command === 'start') {
     if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
   }
   const api = await startApi();
-  await mkdir('.runtime', { recursive: true });
-  await writeFile(state, JSON.stringify({ id: api.id, baseUrl: api.baseUrl, digest: api.digest }));
+  try {
+    await mkdir('.runtime', { recursive: true });
+    await writeFile(
+      state,
+      JSON.stringify({ id: api.id, baseUrl: api.baseUrl, digest: api.digest }),
+    );
+  } catch (error) {
+    await api.stop();
+    throw error;
+  }
   console.log(`API ready: BASE_URL=${api.baseUrl}`);
 } else if (command === 'stop') {
   const data = JSON.parse(await readFile(state, 'utf8'));

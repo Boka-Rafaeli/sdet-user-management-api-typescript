@@ -92,7 +92,16 @@ export async function startApi(
     ]);
     const baseUrl = 'http://127.0.0.1:' + port;
     await waitForApi(baseUrl + '/dev/users');
-    return { id, baseUrl, digest, stop, logs: () => docker(['logs', id]) };
+    return {
+      id,
+      baseUrl,
+      digest,
+      stop,
+      logs: async () => {
+        const logs = await execute('docker', ['logs', id], { maxBuffer: 16 * 1024 * 1024 });
+        return logs.stdout + logs.stderr;
+      },
+    };
   } catch (error) {
     await stop();
     throw error;

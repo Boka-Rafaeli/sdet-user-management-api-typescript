@@ -1,0 +1,105 @@
+name: TypeScript API quality
+run-name: API quality (${{ github.event_name == 'workflow_dispatch' && inputs.scope || 'all' }} / ${{ github.event_name == 'workflow_dispatch' && inputs.probe || 'none' }})
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      scope:
+        type: choice
+        default: all
+        options: [all, dev, prod, isolation]
+      probe:
+        description: Controlled failure-path verification (none for normal runs)
+        type: choice
+        default: none
+        options: [none, deterministic, generator, scrub]
+permissions:
+  contents: read
+env:
+  NODE_VERSION: '24.21.0'
+  APP_IMAGE: ghcr.io/danielsilva-loanpro/sdet-interview-challenge@sha256:c80c42ffafccb6ba9cd9a128421445d308225f09902c03aeadbc99e321176bbc
+jobs:
+  quality:
+    name: Typecheck, lint, unit and infrastructure tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm run test:unit
+      - run: npm run test:collect
+      - run: npm run test:infrastructure
+  api-tests:
+    name: API tests (${{ matrix.scope }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        scope: ${{ fromJSON(github.event_name == 'workflow_dispatch' && inputs.scope != 'all' && format('["{0}"]', inputs.scope) || '["dev","prod","isolation"]') }}
+    env:
+      AUTH_TOKEN: mysecrettoken
+      REPORT_ROOT: reports/generated/${{ matrix.scope }}
+      TEST_ENV: ${{ matrix.scope == 'prod' && 'prod' || 'dev' }}
+      CI_PROBE: ${{ github.event_name == 'workflow_dispatch' && inputs.probe || 'none' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Start isolated API and wait for readiness
+        id: start
+        run: npm run ci:stage -- start
+      - name: Run deterministic scope
+        run: |
+          if [ "$CI_PROBE" = deterministic ]; then
+            npm run test:${{ matrix.scope }} -- --http-trace --contract-trace
+            npm run ci:stage -- fault deterministic
+          else
+            npm run test:${{ matrix.scope }} -- --known-bugs-as-xfail --http-trace --contract-trace
+          fi
+      - name: Run generated exploration
+        if: ${{ always() && steps.start.outcome == 'success' && matrix.scope != 'isolation' }}
+        env:
+          REPORT_DIR: ${{ env.REPORT_ROOT }}/generated
+        run: |
+          if [ "$CI_PROBE" = generator ]; then
+            npm run generated:${{ matrix.scope }} -- --schema .runtime/intentional-missing-schema.yml
+          else
+            npm run generated:${{ matrix.scope }}
+          fi
+      - name: Capture sanitized API logs
+        if: ${{ always() }}
+        run: npm run ci:stage -- logs
+      - name: Scrub and verify evidence
+        id: scrub
+        if: ${{ always() }}
+        run: |
+          npm run ci:stage -- fault scrub
+          npm run scrub -- "$REPORT_ROOT" --secret-env AUTH_TOKEN
+      - name: Upload verified evidence
+        if: ${{ always() && steps.scrub.outcome == 'success' }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: api-evidence-${{ matrix.scope }}
+          path: ${{ env.REPORT_ROOT }}
+          retention-days: 14
+          if-no-files-found: error
+      - name: Remove owned container
+        if: ${{ always() }}
+        run: npm run ci:stage -- stop
