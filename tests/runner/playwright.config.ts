@@ -5,5 +5,5 @@ export default defineConfig({
   workers: 1,
   retries: 0,
   forbidOnly: true,
-  reporter: 'line',
+  reporter: [['../../src/reporter.ts']],
 });
