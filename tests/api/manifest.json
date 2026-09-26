@@ -56,5 +56,5 @@
     "test_update_unknown_user_returns_not_found",
     "test_update_to_duplicate_email_returns_conflict"
   ],
-  "isolation": []
+  "isolation": ["test_dev_and_prod_data_is_independent"]
 }
