@@ -4,7 +4,11 @@
     "test_create_get_and_list_user",
     "test_delete_user_returns_no_content_and_removes_record",
     "test_duplicate_email_returns_conflict",
-    "test_get_unknown_user_returns_not_found"
+    "test_get_unknown_user_returns_not_found",
+    "test_update_persists_changes",
+    "test_update_persists_email_change",
+    "test_update_unknown_user_returns_not_found",
+    "test_update_to_duplicate_email_returns_conflict"
   ],
   "isolation": []
 }
