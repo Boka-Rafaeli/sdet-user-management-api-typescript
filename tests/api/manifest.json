@@ -1,0 +1,10 @@
+{
+  "api": [
+    "test_list_users_matches_contract",
+    "test_create_get_and_list_user",
+    "test_delete_user_returns_no_content_and_removes_record",
+    "test_duplicate_email_returns_conflict",
+    "test_get_unknown_user_returns_not_found"
+  ],
+  "isolation": []
+}

@@ -17,7 +17,11 @@
     "api:start": "tsx scripts/api.ts start",
     "api:stop": "tsx scripts/api.ts stop",
     "api:wait": "tsx scripts/api.ts wait",
-    "test:infrastructure": "tsx --test tests/infrastructure/*.test.ts"
+    "test:infrastructure": "tsx --test tests/infrastructure/*.test.ts",
+    "test:dev": "tsx scripts/run-api.ts dev",
+    "test:prod": "tsx scripts/run-api.ts prod",
+    "test:isolation": "tsx scripts/run-api.ts isolation",
+    "test:list": "playwright test --list"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
