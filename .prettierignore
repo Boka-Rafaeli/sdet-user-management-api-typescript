@@ -1,0 +1,6 @@
+package-lock.json
+reports/
+node_modules/
+docs/MIGRATION_PLAN_RU.md
+docs/source-sha256.json
+openapi/
