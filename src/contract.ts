@@ -1,3 +1,4 @@
+import { redact, redactText } from './redaction.js';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { Ajv } from 'ajv';
@@ -5,6 +6,7 @@ import { parse } from 'yaml';
 import type { ApiResponse } from './client.js';
 export class Contract {
   readonly document: any;
+  private requestId = '-';
   private readonly validator = new Ajv({
     allErrors: true,
     strict: false,
@@ -15,6 +17,7 @@ export class Contract {
   constructor(
     path = 'openapi/sdet_challenge_api.yml',
     private readonly trace = false,
+    private readonly secrets: readonly string[] = [process.env.AUTH_TOKEN ?? 'mysecrettoken'],
   ) {
     this.document = parse(readFileSync(path, 'utf8'));
     // Compatibility with jsonschema 4.26 FormatChecker email; API constraints remain in YAML.
@@ -25,11 +28,12 @@ export class Contract {
   }
   assertResponse(response: ApiResponse, path: string, method: string, status: number): any {
     const operation = method.toUpperCase() + ' ' + path;
+    this.requestId = response.request.id ?? '-';
     this.check(
       operation,
       'status',
       response.status === status,
-      `Expected HTTP ${status}, got ${response.status}`,
+      `Expected HTTP ${status}, got ${response.status}. Response body: ${this.safeBody(response)}`,
     );
     const spec = this.document.paths[path]?.[method.toLowerCase()];
     this.check(
@@ -94,6 +98,13 @@ export class Contract {
       Object.entries(value).map(([key, item]) => [key, this.resolve(item)]),
     );
   }
+  private safeBody(response: ApiResponse): string {
+    try {
+      return JSON.stringify(redact(response.json(), this.secrets));
+    } catch {
+      return redactText(response.text(), this.secrets);
+    }
+  }
   private check(
     operation: string,
     check: string,
@@ -101,7 +112,9 @@ export class Contract {
     message: string,
   ): void {
     if (this.trace)
-      console.log(`CONTRACT ${passed ? 'PASS' : 'FAIL'} operation=${operation} check=${check}`);
+      console.log(
+        `CONTRACT ${passed ? 'PASS' : 'FAIL'} operation=${operation} check=${check} request=${this.requestId}`,
+      );
     assert.ok(passed, message);
   }
 }
