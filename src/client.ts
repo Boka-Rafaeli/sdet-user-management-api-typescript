@@ -1,7 +1,9 @@
+import { HttpTracer } from './http-trace.js';
 import http from 'node:http';
 import https from 'node:https';
 import type { Settings, Environment } from './config.js';
 export interface ApiRequest {
+  id?: string;
   method: string;
   url: string;
   headers: Record<string, string>;
@@ -42,6 +44,7 @@ export class ApiClient {
     https: new https.Agent({ keepAlive: true }),
   };
   private closed = false;
+  private sequence = 0;
   constructor(
     readonly settings: Settings,
     private readonly transport?: Transport,
@@ -95,7 +98,12 @@ export class ApiClient {
       body,
       timeoutMs: this.settings.timeoutMs,
     };
-    return this.transport ? this.transport(request) : this.send(request);
+    request.id = `${this.environment}-${++this.sequence}`;
+    const tracer = new HttpTracer(this.settings.httpTrace, [this.settings.authToken]);
+    tracer.request(request);
+    const response = await (this.transport ? this.transport(request) : this.send(request));
+    tracer.response(response);
+    return response;
   }
   private send(request: ApiRequest): Promise<ApiResponse> {
     return new Promise((resolve, reject) => {
