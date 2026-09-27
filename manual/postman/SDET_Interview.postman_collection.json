@@ -1,0 +1,3577 @@
+{
+  "info": {
+    "name": "SDET Interview — Manual API Requests",
+    "_postman_id": "c5bd3840-6aab-401b-9377-e8f10cfa8054",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Пять операций OpenAPI и ручные запросы по deterministic API tests. Начните с папки 01. Импортируйте local-dev или local-prod environment. Отправляйте запросы по одному: это библиотека запросов с явными предусловиями, без автоматического setup/cleanup и без post-response assertions. Известные баги указаны по repository BUGS.md; результаты сервера в этой сессии не перепроверялись. Папка 09 — дополнительные упражнения. URL-скрипт только кодирует email, не отправляет запросов."
+  },
+  "auth": {
+    "type": "noauth"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:3000",
+      "type": "string"
+    },
+    {
+      "key": "env",
+      "value": "dev",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "mysecrettoken",
+      "type": "string"
+    },
+    {
+      "key": "email",
+      "value": "boka.postman.dev@example.com",
+      "type": "string"
+    },
+    {
+      "key": "second_email",
+      "value": "boka.second.dev@example.com",
+      "type": "string"
+    },
+    {
+      "key": "renamed_email",
+      "value": "boka.renamed.dev@example.com",
+      "type": "string"
+    },
+    {
+      "key": "missing_email",
+      "value": "boka.missing.dev@example.com",
+      "type": "string"
+    },
+    {
+      "key": "auth_email",
+      "value": "boka.auth.dev@example.com",
+      "type": "string"
+    },
+    {
+      "key": "candidate_email",
+      "value": "boka.candidate.dev@example.com",
+      "type": "string"
+    },
+    {
+      "key": "validation_email",
+      "value": "boka.validation.dev@example.com",
+      "type": "string"
+    },
+    {
+      "key": "body_email",
+      "value": "boka.body.dev@example.com",
+      "type": "string"
+    },
+    {
+      "key": "media_email",
+      "value": "boka.media.dev@example.com",
+      "type": "string"
+    },
+    {
+      "key": "raw_email",
+      "value": "boka.raw.dev@example.com",
+      "type": "string"
+    },
+    {
+      "key": "plus_email",
+      "value": "boka.dev+tag@example.com",
+      "type": "string"
+    },
+    {
+      "key": "percent_email",
+      "value": "boka.dev%tag@example.com",
+      "type": "string"
+    },
+    {
+      "key": "isolation_email",
+      "value": "boka.isolation@example.com",
+      "type": "string"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Only derives URL path variables. Sends no HTTP requests and creates no data.",
+          "const keys = [\"email\", \"second_email\", \"renamed_email\", \"missing_email\", \"auth_email\", \"candidate_email\", \"validation_email\", \"body_email\", \"media_email\", \"raw_email\", \"plus_email\", \"percent_email\", \"isolation_email\"];",
+          "for (const key of keys) {",
+          "  const rawEmail = pm.variables.get(key);",
+          "  if (typeof rawEmail !== \"string\") throw new Error(`Set variable ${key}`);",
+          "  pm.variables.set(`${key}_path`, encodeURIComponent(rawEmail));",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "01 — Пять операций и CRUD",
+      "description": "Начните здесь. Выполняйте сверху вниз. Для повторения цикла освободите email или задайте новый. После PUT проверяйте GET; после DELETE проверяйте отсутствие email в списке.",
+      "item": [
+        {
+          "name": "01 Список пользователей [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 200. Ожидается JSON-массив User.\n\nИсточник: tests/test_crud.py::test_list_users_matches_contract\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "02 Создать пользователя [expected 201]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 201. Предусловие: значение email ещё не занято в выбранном prefix. Повторный POST того же email — отдельный duplicate-сценарий.\n\nИсточник: tests/test_crud.py::test_create_get_and_list_user\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "03 Получить пользователя по email [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{email_path}}",
+            "description": "Ожидаемый статус: 200. Сравните все поля с отправленными при POST.\n\nИсточник: tests/test_crud.py::test_create_get_and_list_user\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "04 Обновить name и age [expected 200]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{email_path}}",
+            "description": "Ожидаемый статус: 200. \n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-002: PUT возвращает 200 и echo, но последующий GET возвращает старые значения.\n\nИсточник: tests/test_crud.py::test_update_persists_changes\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Candidate\",\n  \"email\": \"{{email}}\",\n  \"age\": 43\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "05 GET после PUT — проверить сохранение [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{email_path}}",
+            "description": "Ожидаемый статус: 200. Ожидаем name=Updated Candidate, age=43 и прежний email. Валидная схема сама не доказывает совпадение значений.\n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-002: PUT возвращает 200 и echo, но последующий GET возвращает старые значения.\n\nИсточник: tests/test_crud.py::test_update_persists_changes\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "06 Удалить пользователя [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{email_path}}",
+            "description": "Ожидаемый статус: 204. Для существующего fixture: 204 и полностью пустое тело. Если fixture уже отсутствует: 404. Удаляйте только созданные вами данные.\n\nИсточник: tests/test_crud.py::test_delete_user_returns_no_content_and_removes_record\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "07 Список после DELETE — проверить отсутствие email [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 200. В массиве не должно быть записи с email. GET отсутствующего пользователя имеет BUG-004, поэтому для проверки удаления используем список.\n\nИсточник: tests/test_crud.py::test_delete_user_returns_no_content_and_removes_record\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02 — Конфликты, missing user, смена email",
+      "description": "Для duplicate и rename сначала создайте email запросом POST из папки 01. Для PUT conflict также создайте second_email. Rename выполняйте как отдельный сценарий; renamed_email должен быть свободен. missing_email не создавайте.",
+      "item": [
+        {
+          "name": "Повторный POST того же email [expected 409]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 409. \n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-003: 500 с {\"error\":\"Internal server error\"} вместо 409.\n\nИсточник: tests/test_crud.py::test_duplicate_email_returns_conflict\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "GET отсутствующего пользователя [expected 404]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{missing_email_path}}",
+            "description": "Ожидаемый статус: 404. \n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-004: вместо 404 возвращается 500 с {\"error\":\"Internal server error\"}.\n\nИсточник: tests/test_crud.py::test_get_unknown_user_returns_not_found\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "PUT отсутствующего пользователя [expected 404]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{missing_email_path}}",
+            "description": "Ожидаемый статус: 404. \n\nИсточник: tests/test_validation.py::test_update_unknown_user_returns_not_found\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{missing_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE отсутствующего пользователя [expected 404]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{missing_email_path}}",
+            "description": "Ожидаемый статус: 404. missing_email должен отсутствовать; токен валидный.\n\nИсточник: tests/test_authentication.py::test_delete_unknown_user_with_valid_token_returns_not_found\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Создать второго пользователя для конфликта [expected 201]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 201. Предусловие: значение second_email ещё не занято в выбранном prefix. Повторный POST того же email — отдельный duplicate-сценарий.\n\nИсточник: tests/test_validation.py::test_update_to_duplicate_email_returns_conflict\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Second User\",\n  \"email\": \"{{second_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "PUT — заменить email на занятый second_email [expected 409]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{email_path}}",
+            "description": "Ожидаемый статус: 409. \n\nИсточник: tests/test_validation.py::test_update_to_duplicate_email_returns_conflict\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Changed User\",\n  \"email\": \"{{second_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "PUT — заменить email на свободный renamed_email [expected 200]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{email_path}}",
+            "description": "Ожидаемый статус: 200. \n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-002: PUT возвращает 200 и echo, но последующий GET возвращает старые значения.\n\nИсточник: tests/test_crud.py::test_update_persists_email_change\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Renamed Candidate\",\n  \"email\": \"{{renamed_email}}\",\n  \"age\": 43\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "GET по новому email после rename [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{renamed_email_path}}",
+            "description": "Ожидаемый статус: 200. Ожидаем переименованного пользователя.\n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-002 + BUG-004: новая запись отсутствует, GET обычно возвращает 500.\n\nИсточник: tests/test_crud.py::test_update_persists_email_change\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "GET по старому email после rename [expected 404]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{email_path}}",
+            "description": "Ожидаемый статус: 404. После корректного rename старый ключ отсутствует.\n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-002: возвращается 200 с исходным пользователем.\n\nИсточник: tests/test_crud.py::test_update_persists_email_change\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Список после rename — сверить старый и новый email [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 200. Ожидаем отсутствие старого ключа и наличие нового с обновлёнными значениями.\n\nИсточник: tests/test_crud.py::test_update_persists_email_change\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Cleanup second_email [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{second_email_path}}",
+            "description": "Ожидаемый статус: 204. Для существующего fixture: 204 и полностью пустое тело. Если fixture уже отсутствует: 404. Удаляйте только созданные вами данные.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Cleanup renamed_email [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{renamed_email_path}}",
+            "description": "Ожидаемый статус: 204. Для существующего fixture: 204 и полностью пустое тело. Если fixture уже отсутствует: 404. Удаляйте только созданные вами данные.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Cleanup исходного email [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{email_path}}",
+            "description": "Ожидаемый статус: 204. Для существующего fixture: 204 и полностью пустое тело. Если fixture уже отсутствует: 404. Удаляйте только созданные вами данные.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03 — DELETE authentication",
+      "description": "Перед КАЖДЫМ негативным DELETE создайте auth_email, если его нет. В dev BUG-001 действительно удаляет fixture, поэтому последовательное отправление трёх DELETE без повторного POST исказит сценарий. После запроса проверьте GET и список.",
+      "item": [
+        {
+          "name": "00 Создать fixture перед auth-case [expected 201]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 201. Предусловие: значение auth_email ещё не занято в выбранном prefix. Повторный POST того же email — отдельный duplicate-сценарий.\n\nИсточник: tests/test_authentication.py::test_delete_rejects_missing_or_invalid_authentication\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{auth_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Без заголовка Authentication [expected 401]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{auth_email_path}}",
+            "description": "Ожидаемый статус: 401. Ожидаем ErrorResponse и сохранение исходного пользователя. В запросе явно выбран No Auth, чтобы не наследовать авторизацию коллекции.\n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-001 только в dev: 204 и удаление пользователя. В prod: 401 и пользователь сохраняется.\n\nИсточник: tests/test_authentication.py::test_delete_rejects_missing_or_invalid_authentication[missing-header]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Пустой Authentication [expected 401]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{auth_email_path}}",
+            "description": "Ожидаемый статус: 401. Ожидаем ErrorResponse и сохранение исходного пользователя. В запросе явно выбран No Auth, чтобы не наследовать авторизацию коллекции.\n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-001 только в dev: 204 и удаление пользователя. В prod: 401 и пользователь сохраняется.\n\nИсточник: tests/test_authentication.py::test_delete_rejects_missing_or_invalid_authentication[empty-token]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Неверный Authentication [expected 401]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "wrong-token",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{auth_email_path}}",
+            "description": "Ожидаемый статус: 401. Ожидаем ErrorResponse и сохранение исходного пользователя. В запросе явно выбран No Auth, чтобы не наследовать авторизацию коллекции.\n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-001 только в dev: 204 и удаление пользователя. В prod: 401 и пользователь сохраняется.\n\nИсточник: tests/test_authentication.py::test_delete_rejects_missing_or_invalid_authentication[invalid-token]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "GET после отказа — пользователь должен сохраниться [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{auth_email_path}}",
+            "description": "Ожидаемый статус: 200. Сравните поля с исходным POST.\n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): При BUG-001 в dev пользователь удалён; из-за BUG-004 GET может вернуть 500.\n\nИсточник: tests/test_authentication.py::test_delete_rejects_missing_or_invalid_authentication\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Список после auth-case — проверить наличие email [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 200. После корректного 401 auth_email должен остаться в списке.\n\nИсточник: tests/test_authentication.py::test_delete_rejects_missing_or_invalid_authentication\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Cleanup auth fixture с валидным токеном [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{auth_email_path}}",
+            "description": "Ожидаемый статус: 204. Для существующего fixture: 204 и полностью пустое тело. Если fixture уже отсутствует: 404. Удаляйте только созданные вами данные.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "04 — POST: schema validation",
+      "description": "Каждый case выполняйте отдельно. candidate_email должен быть свободен перед POST. Ошибочно принятый POST может создать запись: прочитайте и удалите только свой fixture перед следующим case. Для email=42 и not-an-email предусмотрены отдельные GET/DELETE внизу.",
+      "item": [
+        {
+          "name": "missing-name [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[missing-name]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{candidate_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "missing-email [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[missing-email]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "missing-age [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[missing-age]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{candidate_email}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "null-name [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[null-name]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": null,\n  \"email\": \"{{candidate_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "null-email [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[null-email]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": null,\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "null-age [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[null-age]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{candidate_email}}\",\n  \"age\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "name-integer [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-006: 201 и echo. Последующий GET возвращает числовое поле name/email как строку \"42\".\n\nИсточник: tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[name-integer]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": 42,\n  \"email\": \"{{candidate_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "email-integer [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-006: 201 и echo. Последующий GET возвращает числовое поле name/email как строку \"42\".\n\nИсточник: tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[email-integer]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": 42,\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "invalid-email [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-005: 201, запись с ключом not-an-email сохраняется.\n\nИсточник: tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[invalid-email]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"not-an-email\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "age-below-minimum [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[age-below-minimum]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{candidate_email}}\",\n  \"age\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "age-above-maximum [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[age-above-maximum]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{candidate_email}}\",\n  \"age\": 151\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "age-string [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[age-string]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{candidate_email}}\",\n  \"age\": \"42\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "age-boolean [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[age-boolean]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{candidate_email}}\",\n  \"age\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "age-float [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[age-float]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{candidate_email}}\",\n  \"age\": 42.5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "age-object [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[age-object]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{candidate_email}}\",\n  \"age\": {\n    \"value\": 42\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "age=1 — допустимая граница [expected 201]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 201. Перед каждой границей используйте свободный candidate_email.\n\nИсточник: tests/test_validation.py::test_create_accepts_documented_age_boundaries[minimum]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{candidate_email}}\",\n  \"age\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "age=150 — допустимая граница [expected 201]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 201. Перед каждой границей используйте свободный candidate_email.\n\nИсточник: tests/test_validation.py::test_create_accepts_documented_age_boundaries[maximum]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{candidate_email}}\",\n  \"age\": 150\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "name=\"\" — допустимо по текущему контракту [expected 201]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 201. \n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-009: 400 с {\"error\":\"name is required\"}. В схеме отсутствует minLength.\n\nИсточник: tests/test_validation.py::test_create_accepts_empty_name_allowed_by_contract\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"\",\n  \"email\": \"{{candidate_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Прочитать fixture, если он существует [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{candidate_email_path}}",
+            "description": "Ожидаемый статус: 200. Если POST отклонён и запись не создана: по контракту 404; BUG-004 может дать 500. Если запись существует: сравните все поля.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Cleanup fixture [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{candidate_email_path}}",
+            "description": "Ожидаемый статус: 204. Для существующего fixture: 204 и полностью пустое тело. Если fixture уже отсутствует: 404. Удаляйте только созданные вами данные.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "GET записи с ключом 42 [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/42",
+            "description": "Ожидаемый статус: 200. Только после собственного ошибочно принятого POST с этим ключом. Такой ответ может нарушать схему User.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Cleanup собственного ключа 42 [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/42",
+            "description": "Ожидаемый статус: 204. Выполняйте только если именно вы создали эту запись. Если записи нет: 404.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "GET записи с ключом not-an-email [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/not-an-email",
+            "description": "Ожидаемый статус: 200. Только после собственного ошибочно принятого POST с этим ключом. Такой ответ может нарушать схему User.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Cleanup собственного ключа not-an-email [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/not-an-email",
+            "description": "Ожидаемый статус: 204. Выполняйте только если именно вы создали эту запись. Если записи нет: 404.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "05 — PUT: schema validation",
+      "description": "Перед case создайте validation_email. При повторении сначала прочитайте/удалите свой fixture, затем создайте заново. PUT использует существующий email в URL; mutation изменяет только тело запроса.",
+      "item": [
+        {
+          "name": "00 Создать fixture перед PUT validation [expected 201]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 201. Предусловие: значение validation_email ещё не занято в выбранном prefix. Повторный POST того же email — отдельный duplicate-сценарий.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{validation_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "missing-name [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[missing-name]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{validation_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "missing-email [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[missing-email]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "missing-age [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[missing-age]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{validation_email}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "null-name [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[null-name]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": null,\n  \"email\": \"{{validation_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "null-email [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[null-email]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": null,\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "null-age [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[null-age]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{validation_email}}\",\n  \"age\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "name-integer [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-006: 200 и echo с name=42.\n\nИсточник: tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[name-integer]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": 42,\n  \"email\": \"{{validation_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "email-integer [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-006: 500 с {\"error\":\"Internal server error\"}.\n\nИсточник: tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[email-integer]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": 42,\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "invalid-email [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[invalid-email]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"not-an-email\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "age-below-minimum [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[age-below-minimum]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{validation_email}}\",\n  \"age\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "age-above-maximum [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[age-above-maximum]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{validation_email}}\",\n  \"age\": 151\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "age-string [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[age-string]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{validation_email}}\",\n  \"age\": \"42\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "age-boolean [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[age-boolean]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{validation_email}}\",\n  \"age\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "age-float [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[age-float]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{validation_email}}\",\n  \"age\": 42.5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "age-object [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 400. Ожидается JSON ErrorResponse. Для диагностики побочных эффектов используйте GET/список после запроса.\n\nИсточник: tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[age-object]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{validation_email}}\",\n  \"age\": {\n    \"value\": 42\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "name=\"\" — допустимо по текущему контракту [expected 200]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 200. \n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-009: 400 с {\"error\":\"name is required\"}. В схеме отсутствует minLength.\n\nИсточник: tests/test_validation.py::test_update_accepts_empty_name_allowed_by_contract\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"\",\n  \"email\": \"{{validation_email}}\",\n  \"age\": 43\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Прочитать fixture, если он существует [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 200. Если POST отклонён и запись не создана: по контракту 404; BUG-004 может дать 500. Если запись существует: сравните все поля.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Cleanup fixture [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}",
+            "description": "Ожидаемый статус: 204. Для существующего fixture: 204 и полностью пустое тело. Если fixture уже отсутствует: 404. Удаляйте только созданные вами данные.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "06 — Non-object JSON и Content-Type",
+      "description": "POST array/string не требует fixture. Для PUT сначала создайте body_email. Перед POST text/plain media_email должен быть свободен. PUT выполняйте на свежем fixture; затем сравните GET с исходными полями.",
+      "item": [
+        {
+          "name": "00 Создать fixture для PUT body cases [expected 201]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 201. Предусловие: значение body_email ещё не занято в выбранном prefix. Повторный POST того же email — отдельный duplicate-сценарий.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{body_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "POST: JSON array [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. \n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-007: 500 с {\"error\":\"Internal server error\"}. При PUT исходная запись остаётся без изменений.\n\nИсточник: tests/test_request_body.py::test_create_rejects_non_object_json_body[array]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "[]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "POST: JSON string [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. \n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-007: 500 с {\"error\":\"Internal server error\"}. При PUT исходная запись остаётся без изменений.\n\nИсточник: tests/test_request_body.py::test_create_rejects_non_object_json_body[string]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "\"text\"",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "POST: JSON-текст с Content-Type text/plain [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "text/plain",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. В текущих tests ожидается 400. Ответ 415 пока не объявлен в OpenAPI.\n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-008: POST возвращает 201 и сохраняет запись.\n\nИсточник: tests/test_request_body.py::test_create_rejects_unsupported_request_media_type\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{media_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "PUT: JSON array [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{body_email_path}}",
+            "description": "Ожидаемый статус: 400. \n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-007: 500 с {\"error\":\"Internal server error\"}. При PUT исходная запись остаётся без изменений.\n\nИсточник: tests/test_request_body.py::test_update_rejects_non_object_json_body[array]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "[]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "PUT: JSON string [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{body_email_path}}",
+            "description": "Ожидаемый статус: 400. \n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-007: 500 с {\"error\":\"Internal server error\"}. При PUT исходная запись остаётся без изменений.\n\nИсточник: tests/test_request_body.py::test_update_rejects_non_object_json_body[string]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "\"text\"",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "PUT: JSON-текст с Content-Type text/plain [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "text/plain",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{body_email_path}}",
+            "description": "Ожидаемый статус: 400. В текущих tests ожидается 400. Ответ 415 пока не объявлен в OpenAPI.\n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-008: PUT возвращает 200 и echo; из-за BUG-002 обновление не сохраняется.\n\nИсточник: tests/test_request_body.py::test_update_rejects_unsupported_request_media_type\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Wrong Media Type\",\n  \"email\": \"{{body_email}}\",\n  \"age\": 43\n}",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "GET после PUT — проверить исходное состояние [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{body_email_path}}",
+            "description": "Ожидаемый статус: 200. После отклонённого PUT исходная запись должна остаться без изменений.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "GET после POST text/plain — диагностировать создание [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{media_email_path}}",
+            "description": "Ожидаемый статус: 200. Корректный отказ POST не должен создавать запись (GET: 404). Этот диагностический запрос ожидает 200 только при воспроизведении BUG-008.\n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-008: созданная запись читается с 200.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Cleanup PUT fixture [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{body_email_path}}",
+            "description": "Ожидаемый статус: 204. Для существующего fixture: 204 и полностью пустое тело. Если fixture уже отсутствует: 404. Удаляйте только созданные вами данные.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Cleanup ошибочно созданного POST fixture [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{media_email_path}}",
+            "description": "Ожидаемый статус: 204. Для существующего fixture: 204 и полностью пустое тело. Если fixture уже отсутствует: 404. Удаляйте только созданные вами данные.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "07 — URL encoding: плюс и процент",
+      "description": "В JSON email передаётся обычным текстом, в URL — percent-encoded ровно один раз. Скрипт коллекции вычисляет *_path из исходных email. Выполняйте отдельный цикл POST → GET → DELETE → list для каждого email.",
+      "item": [
+        {
+          "name": "plus: POST [expected 201]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 201. Предусловие: значение plus_email ещё не занято в выбранном prefix. Повторный POST того же email — отдельный duplicate-сценарий.\n\nИсточник: tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[plus]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{plus_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "plus: GET [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{plus_email_path}}",
+            "description": "Ожидаемый статус: 200. В URL символ + должен быть %2B, символ % — %25. Сравните полученные поля с POST.\n\nИсточник: tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[plus]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "plus: DELETE [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{plus_email_path}}",
+            "description": "Ожидаемый статус: 204. Для существующего fixture: 204 и полностью пустое тело. Если fixture уже отсутствует: 404. Удаляйте только созданные вами данные.\n\nИсточник: tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[plus]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "plus: list после DELETE [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 200. Записи с plus_email не должно быть в массиве.\n\nИсточник: tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[plus]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "percent: POST [expected 201]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 201. Предусловие: значение percent_email ещё не занято в выбранном prefix. Повторный POST того же email — отдельный duplicate-сценарий.\n\nИсточник: tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[percent]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{percent_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "percent: GET [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{percent_email_path}}",
+            "description": "Ожидаемый статус: 200. В URL символ + должен быть %2B, символ % — %25. Сравните полученные поля с POST.\n\nИсточник: tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[percent]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "percent: DELETE [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{percent_email_path}}",
+            "description": "Ожидаемый статус: 204. Для существующего fixture: 204 и полностью пустое тело. Если fixture уже отсутствует: 404. Удаляйте только созданные вами данные.\n\nИсточник: tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[percent]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "percent: list после DELETE [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 200. Записи с percent_email не должно быть в массиве.\n\nИсточник: tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[percent]\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "08 — Изоляция dev и prod",
+      "description": "Оба prefix находятся на одном base_url. Эта папка намеренно использует явные /dev и /prod и игнорирует переменную env. isolation_email одинаковый в обеих средах; сначала убедитесь, что он свободен в каждой. Выполняйте сверху вниз.",
+      "item": [
+        {
+          "name": "01 Создать в dev [expected 201]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/dev/users",
+            "description": "Ожидаемый статус: 201. Предусловие: значение isolation_email ещё не занято в выбранном prefix. Повторный POST того же email — отдельный duplicate-сценарий.\n\nИсточник: tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Development User\",\n  \"email\": \"{{isolation_email}}\",\n  \"age\": 31\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "02 Создать тот же email в prod [expected 201]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/prod/users",
+            "description": "Ожидаемый статус: 201. Предусловие: значение isolation_email ещё не занято в выбранном prefix. Повторный POST того же email — отдельный duplicate-сценарий.\n\nИсточник: tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Production User\",\n  \"email\": \"{{isolation_email}}\",\n  \"age\": 47\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "03 PUT только в dev [expected 200]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/dev/users/{{isolation_email_path}}",
+            "description": "Ожидаемый статус: 200. \n\nИзвестное поведение по BUGS.md (не повторно проверено сейчас): BUG-002: PUT возвращает 200 и echo, но последующий GET возвращает старые значения.\n\nИсточник: tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Dev User\",\n  \"email\": \"{{isolation_email}}\",\n  \"age\": 32\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "04 Проверить prod после dev PUT [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/prod/users/{{isolation_email_path}}",
+            "description": "Ожидаемый статус: 200. name=Production User, age=47; prod не изменился.\n\nИсточник: tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "05 DELETE только в dev [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/dev/users/{{isolation_email_path}}",
+            "description": "Ожидаемый статус: 204. Для существующего fixture: 204 и полностью пустое тело. Если fixture уже отсутствует: 404. Удаляйте только созданные вами данные.\n\nИсточник: tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "06 Список dev после DELETE [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/dev/users",
+            "description": "Ожидаемый статус: 200. isolation_email отсутствует в dev.\n\nИсточник: tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "07 Проверить prod после dev DELETE [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/prod/users/{{isolation_email_path}}",
+            "description": "Ожидаемый статус: 200. Пользователь всё ещё существует: name=Production User, age=47.\n\nИсточник: tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "08 Cleanup prod [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/prod/users/{{isolation_email_path}}",
+            "description": "Ожидаемый статус: 204. Для существующего fixture: 204 и полностью пустое тело. Если fixture уже отсутствует: 404. Удаляйте только созданные вами данные.\n\nИсточник: tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "09 Cleanup dev — если не удалён ранее [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/dev/users/{{isolation_email_path}}",
+            "description": "Ожидаемый статус: 204. Для существующего fixture: 204 и полностью пустое тело. Если fixture уже отсутствует: 404. Удаляйте только созданные вами данные.\n\nИсточник: tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "09 — Дополнительно: no body, null, malformed JSON",
+      "description": "Ручное исследование для подготовки. Это не утверждение о существующем E2E-покрытии: JSON null проверяется unit-тестом клиента с MockTransport; no body и malformed JSON не представлены отдельными deterministic API tests. Фактический ответ сервера здесь не перепроверен. Для PUT создайте raw_email.",
+      "item": [
+        {
+          "name": "00 Создать fixture для PUT [expected 201]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 201. Предусловие: значение raw_email ещё не занято в выбранном prefix. Повторный POST того же email — отдельный duplicate-сценарий.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SDET Candidate\",\n  \"email\": \"{{raw_email}}\",\n  \"age\": 42\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "POST: No body — ноль байтов [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Это дополнительная ручная проверка, не отдельный deterministic API test. Ожидание: отказ с документированным validation response, поскольку requestBody обязателен и должен быть объектом по схеме. Проверяйте фактические status/body/state.\n\nИсточник: Дополнительное ручное упражнение\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "POST: JSON null — четыре байта [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Это дополнительная ручная проверка, не отдельный deterministic API test. Ожидание: отказ с документированным validation response, поскольку requestBody обязателен и должен быть объектом по схеме. Проверяйте фактические status/body/state.\n\nИсточник: tests/test_client.py::test_raw_request_sends_any_json_shape[null] (unit, только POST; не проверяет поведение сервера)\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "null",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "POST: Malformed JSON — незакрытый объект [expected 400]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users",
+            "description": "Ожидаемый статус: 400. Это дополнительная ручная проверка, не отдельный deterministic API test. Ожидание: отказ с документированным validation response, поскольку requestBody обязателен и должен быть объектом по схеме. Проверяйте фактические status/body/state.\n\nИсточник: Дополнительное ручное упражнение\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "PUT: No body — ноль байтов [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{raw_email_path}}",
+            "description": "Ожидаемый статус: 400. Это дополнительная ручная проверка, не отдельный deterministic API test. Ожидание: отказ с документированным validation response, поскольку requestBody обязателен и должен быть объектом по схеме. Проверяйте фактические status/body/state.\n\nИсточник: Дополнительное ручное упражнение\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "PUT: JSON null — четыре байта [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{raw_email_path}}",
+            "description": "Ожидаемый статус: 400. Это дополнительная ручная проверка, не отдельный deterministic API test. Ожидание: отказ с документированным validation response, поскольку requestBody обязателен и должен быть объектом по схеме. Проверяйте фактические status/body/state.\n\nИсточник: tests/test_client.py::test_raw_request_sends_any_json_shape[null] (unit, только POST; не проверяет поведение сервера)\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "null",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "PUT: Malformed JSON — незакрытый объект [expected 400]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{raw_email_path}}",
+            "description": "Ожидаемый статус: 400. Это дополнительная ручная проверка, не отдельный deterministic API test. Ожидание: отказ с документированным validation response, поскольку requestBody обязателен и должен быть объектом по схеме. Проверяйте фактические status/body/state.\n\nИсточник: Дополнительное ручное упражнение\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "GET после невалидного PUT [expected 200]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{raw_email_path}}",
+            "description": "Ожидаемый статус: 200. Ожидается исходный пользователь без изменений.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        },
+        {
+          "name": "Cleanup raw fixture [expected 204]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authentication",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{base_url}}/{{env}}/users/{{raw_email_path}}",
+            "description": "Ожидаемый статус: 204. Для существующего fixture: 204 и полностью пустое тело. Если fixture уже отсутствует: 404. Удаляйте только созданные вами данные.\n\nОдин Send отправляет один запрос. Предусловия и проверка состояния выполняются вручную."
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "disableUrlEncoding": true
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

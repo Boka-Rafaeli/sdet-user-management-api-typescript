@@ -1,0 +1,346 @@
+{
+  "schemaVersion": 1,
+  "scope": "prod",
+  "environment": "prod",
+  "imageDigest": "ghcr.io/danielsilva-loanpro/sdet-interview-challenge@sha256:c80c42ffafccb6ba9cd9a128421445d308225f09902c03aeadbc99e321176bbc",
+  "status": "passed",
+  "counts": {
+    "total": 55,
+    "pass": 38,
+    "xfail": 17,
+    "fail": 0
+  },
+  "errors": [],
+  "results": [
+    {
+      "id": "test_delete_rejects_missing_or_invalid_authentication[missing-header]",
+      "status": "PASS",
+      "durationMs": 69,
+      "reason": ""
+    },
+    {
+      "id": "test_delete_rejects_missing_or_invalid_authentication[empty-token]",
+      "status": "PASS",
+      "durationMs": 22,
+      "reason": ""
+    },
+    {
+      "id": "test_delete_rejects_missing_or_invalid_authentication[invalid-token]",
+      "status": "PASS",
+      "durationMs": 21,
+      "reason": ""
+    },
+    {
+      "id": "test_delete_unknown_user_with_valid_token_returns_not_found",
+      "status": "PASS",
+      "durationMs": 4,
+      "reason": ""
+    },
+    {
+      "id": "test_create_rejects_payloads_outside_openapi_schema[missing-name]",
+      "status": "PASS",
+      "durationMs": 11,
+      "reason": ""
+    },
+    {
+      "id": "test_create_rejects_payloads_outside_openapi_schema[missing-email]",
+      "status": "PASS",
+      "durationMs": 16,
+      "reason": ""
+    },
+    {
+      "id": "test_create_rejects_payloads_outside_openapi_schema[missing-age]",
+      "status": "PASS",
+      "durationMs": 8,
+      "reason": ""
+    },
+    {
+      "id": "test_create_rejects_payloads_outside_openapi_schema[null-name]",
+      "status": "PASS",
+      "durationMs": 9,
+      "reason": ""
+    },
+    {
+      "id": "test_create_rejects_payloads_outside_openapi_schema[null-email]",
+      "status": "PASS",
+      "durationMs": 22,
+      "reason": ""
+    },
+    {
+      "id": "test_create_rejects_payloads_outside_openapi_schema[null-age]",
+      "status": "PASS",
+      "durationMs": 8,
+      "reason": ""
+    },
+    {
+      "id": "test_create_rejects_payloads_outside_openapi_schema[name-integer]",
+      "status": "XFAIL",
+      "durationMs": 11,
+      "reason": "BUG-006: BUG-006: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_create_rejects_payloads_outside_openapi_schema[email-integer]",
+      "status": "XFAIL",
+      "durationMs": 11,
+      "reason": "BUG-006: BUG-006: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_create_rejects_payloads_outside_openapi_schema[invalid-email]",
+      "status": "XFAIL",
+      "durationMs": 10,
+      "reason": "BUG-005: BUG-005: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_create_rejects_payloads_outside_openapi_schema[age-below-minimum]",
+      "status": "PASS",
+      "durationMs": 9,
+      "reason": ""
+    },
+    {
+      "id": "test_create_rejects_payloads_outside_openapi_schema[age-above-maximum]",
+      "status": "PASS",
+      "durationMs": 18,
+      "reason": ""
+    },
+    {
+      "id": "test_create_rejects_payloads_outside_openapi_schema[age-string]",
+      "status": "PASS",
+      "durationMs": 7,
+      "reason": ""
+    },
+    {
+      "id": "test_create_rejects_payloads_outside_openapi_schema[age-boolean]",
+      "status": "PASS",
+      "durationMs": 8,
+      "reason": ""
+    },
+    {
+      "id": "test_create_rejects_payloads_outside_openapi_schema[age-float]",
+      "status": "PASS",
+      "durationMs": 9,
+      "reason": ""
+    },
+    {
+      "id": "test_create_rejects_payloads_outside_openapi_schema[age-object]",
+      "status": "PASS",
+      "durationMs": 9,
+      "reason": ""
+    },
+    {
+      "id": "test_create_accepts_documented_age_boundaries[minimum]",
+      "status": "PASS",
+      "durationMs": 25,
+      "reason": ""
+    },
+    {
+      "id": "test_create_accepts_documented_age_boundaries[maximum]",
+      "status": "PASS",
+      "durationMs": 7,
+      "reason": ""
+    },
+    {
+      "id": "test_create_accepts_empty_name_allowed_by_contract",
+      "status": "XFAIL",
+      "durationMs": 8,
+      "reason": "BUG-009: BUG-009: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_list_users_matches_contract",
+      "status": "PASS",
+      "durationMs": 3,
+      "reason": ""
+    },
+    {
+      "id": "test_create_get_and_list_user",
+      "status": "PASS",
+      "durationMs": 14,
+      "reason": ""
+    },
+    {
+      "id": "test_delete_user_returns_no_content_and_removes_record",
+      "status": "PASS",
+      "durationMs": 12,
+      "reason": ""
+    },
+    {
+      "id": "test_duplicate_email_returns_conflict",
+      "status": "XFAIL",
+      "durationMs": 16,
+      "reason": "BUG-003: BUG-003: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_get_unknown_user_returns_not_found",
+      "status": "XFAIL",
+      "durationMs": 2,
+      "reason": "BUG-004: BUG-004: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_create_rejects_non_object_json_body[array]",
+      "status": "XFAIL",
+      "durationMs": 3,
+      "reason": "BUG-007: BUG-007: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_update_rejects_non_object_json_body[array]",
+      "status": "XFAIL",
+      "durationMs": 12,
+      "reason": "BUG-007: BUG-007: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_create_rejects_non_object_json_body[string]",
+      "status": "XFAIL",
+      "durationMs": 2,
+      "reason": "BUG-007: BUG-007: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_update_rejects_non_object_json_body[string]",
+      "status": "XFAIL",
+      "durationMs": 13,
+      "reason": "BUG-007: BUG-007: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_create_rejects_unsupported_request_media_type",
+      "status": "XFAIL",
+      "durationMs": 11,
+      "reason": "BUG-008: BUG-008: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_update_rejects_unsupported_request_media_type",
+      "status": "XFAIL",
+      "durationMs": 17,
+      "reason": "BUG-008: BUG-008: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_email_reserved_character_round_trips_through_encoded_path[plus]",
+      "status": "PASS",
+      "durationMs": 16,
+      "reason": ""
+    },
+    {
+      "id": "test_email_reserved_character_round_trips_through_encoded_path[percent]",
+      "status": "PASS",
+      "durationMs": 15,
+      "reason": ""
+    },
+    {
+      "id": "test_update_rejects_payloads_outside_openapi_schema[missing-name]",
+      "status": "PASS",
+      "durationMs": 13,
+      "reason": ""
+    },
+    {
+      "id": "test_update_rejects_payloads_outside_openapi_schema[missing-email]",
+      "status": "PASS",
+      "durationMs": 12,
+      "reason": ""
+    },
+    {
+      "id": "test_update_rejects_payloads_outside_openapi_schema[missing-age]",
+      "status": "PASS",
+      "durationMs": 12,
+      "reason": ""
+    },
+    {
+      "id": "test_update_rejects_payloads_outside_openapi_schema[null-name]",
+      "status": "PASS",
+      "durationMs": 13,
+      "reason": ""
+    },
+    {
+      "id": "test_update_rejects_payloads_outside_openapi_schema[null-email]",
+      "status": "PASS",
+      "durationMs": 12,
+      "reason": ""
+    },
+    {
+      "id": "test_update_rejects_payloads_outside_openapi_schema[null-age]",
+      "status": "PASS",
+      "durationMs": 13,
+      "reason": ""
+    },
+    {
+      "id": "test_update_rejects_payloads_outside_openapi_schema[name-integer]",
+      "status": "XFAIL",
+      "durationMs": 12,
+      "reason": "BUG-006: BUG-006: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_update_rejects_payloads_outside_openapi_schema[email-integer]",
+      "status": "XFAIL",
+      "durationMs": 13,
+      "reason": "BUG-006: BUG-006: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_update_rejects_payloads_outside_openapi_schema[invalid-email]",
+      "status": "PASS",
+      "durationMs": 13,
+      "reason": ""
+    },
+    {
+      "id": "test_update_rejects_payloads_outside_openapi_schema[age-below-minimum]",
+      "status": "PASS",
+      "durationMs": 12,
+      "reason": ""
+    },
+    {
+      "id": "test_update_rejects_payloads_outside_openapi_schema[age-above-maximum]",
+      "status": "PASS",
+      "durationMs": 13,
+      "reason": ""
+    },
+    {
+      "id": "test_update_rejects_payloads_outside_openapi_schema[age-string]",
+      "status": "PASS",
+      "durationMs": 12,
+      "reason": ""
+    },
+    {
+      "id": "test_update_rejects_payloads_outside_openapi_schema[age-boolean]",
+      "status": "PASS",
+      "durationMs": 12,
+      "reason": ""
+    },
+    {
+      "id": "test_update_rejects_payloads_outside_openapi_schema[age-float]",
+      "status": "PASS",
+      "durationMs": 12,
+      "reason": ""
+    },
+    {
+      "id": "test_update_rejects_payloads_outside_openapi_schema[age-object]",
+      "status": "PASS",
+      "durationMs": 12,
+      "reason": ""
+    },
+    {
+      "id": "test_update_accepts_empty_name_allowed_by_contract",
+      "status": "XFAIL",
+      "durationMs": 13,
+      "reason": "BUG-009: BUG-009: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_update_persists_changes",
+      "status": "XFAIL",
+      "durationMs": 18,
+      "reason": "BUG-002: BUG-002: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_update_persists_email_change",
+      "status": "XFAIL",
+      "durationMs": 19,
+      "reason": "BUG-002: BUG-002: exact defect signature reproduced in prod"
+    },
+    {
+      "id": "test_update_unknown_user_returns_not_found",
+      "status": "PASS",
+      "durationMs": 8,
+      "reason": ""
+    },
+    {
+      "id": "test_update_to_duplicate_email_returns_conflict",
+      "status": "PASS",
+      "durationMs": 22,
+      "reason": ""
+    }
+  ]
+}

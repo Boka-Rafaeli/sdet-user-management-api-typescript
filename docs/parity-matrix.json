@@ -1,0 +1,491 @@
+{
+  "sourceReference": "fresh local Python run against pinned image, 2026-09-26",
+  "api": [
+    {
+      "source": "tests.test_authentication::test_delete_rejects_missing_or_invalid_authentication[missing-header]",
+      "typescriptId": "test_delete_rejects_missing_or_invalid_authentication[missing-header]",
+      "typescriptFile": "tests/api/authentication.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_authentication::test_delete_rejects_missing_or_invalid_authentication[empty-token]",
+      "typescriptId": "test_delete_rejects_missing_or_invalid_authentication[empty-token]",
+      "typescriptFile": "tests/api/authentication.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_authentication::test_delete_rejects_missing_or_invalid_authentication[invalid-token]",
+      "typescriptId": "test_delete_rejects_missing_or_invalid_authentication[invalid-token]",
+      "typescriptFile": "tests/api/authentication.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_authentication::test_delete_unknown_user_with_valid_token_returns_not_found",
+      "typescriptId": "test_delete_unknown_user_with_valid_token_returns_not_found",
+      "typescriptFile": "tests/api/authentication.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_crud::test_list_users_matches_contract",
+      "typescriptId": "test_list_users_matches_contract",
+      "typescriptFile": "tests/api/crud.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_crud::test_create_get_and_list_user",
+      "typescriptId": "test_create_get_and_list_user",
+      "typescriptFile": "tests/api/crud.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_crud::test_update_persists_changes",
+      "typescriptId": "test_update_persists_changes",
+      "typescriptFile": "tests/api/update.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_crud::test_update_persists_email_change",
+      "typescriptId": "test_update_persists_email_change",
+      "typescriptFile": "tests/api/update.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_crud::test_delete_user_returns_no_content_and_removes_record",
+      "typescriptId": "test_delete_user_returns_no_content_and_removes_record",
+      "typescriptFile": "tests/api/crud.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_crud::test_duplicate_email_returns_conflict",
+      "typescriptId": "test_duplicate_email_returns_conflict",
+      "typescriptFile": "tests/api/crud.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_crud::test_get_unknown_user_returns_not_found",
+      "typescriptId": "test_get_unknown_user_returns_not_found",
+      "typescriptFile": "tests/api/crud.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_request_body::test_create_rejects_non_object_json_body[array]",
+      "typescriptId": "test_create_rejects_non_object_json_body[array]",
+      "typescriptFile": "tests/api/protocol.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_request_body::test_create_rejects_non_object_json_body[string]",
+      "typescriptId": "test_create_rejects_non_object_json_body[string]",
+      "typescriptFile": "tests/api/protocol.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_request_body::test_update_rejects_non_object_json_body[array]",
+      "typescriptId": "test_update_rejects_non_object_json_body[array]",
+      "typescriptFile": "tests/api/protocol.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_request_body::test_update_rejects_non_object_json_body[string]",
+      "typescriptId": "test_update_rejects_non_object_json_body[string]",
+      "typescriptFile": "tests/api/protocol.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_request_body::test_create_rejects_unsupported_request_media_type",
+      "typescriptId": "test_create_rejects_unsupported_request_media_type",
+      "typescriptFile": "tests/api/protocol.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_request_body::test_update_rejects_unsupported_request_media_type",
+      "typescriptId": "test_update_rejects_unsupported_request_media_type",
+      "typescriptFile": "tests/api/protocol.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_rejects_payloads_outside_openapi_schema[missing-name]",
+      "typescriptId": "test_create_rejects_payloads_outside_openapi_schema[missing-name]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_rejects_payloads_outside_openapi_schema[missing-email]",
+      "typescriptId": "test_create_rejects_payloads_outside_openapi_schema[missing-email]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_rejects_payloads_outside_openapi_schema[missing-age]",
+      "typescriptId": "test_create_rejects_payloads_outside_openapi_schema[missing-age]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_rejects_payloads_outside_openapi_schema[null-name]",
+      "typescriptId": "test_create_rejects_payloads_outside_openapi_schema[null-name]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_rejects_payloads_outside_openapi_schema[null-email]",
+      "typescriptId": "test_create_rejects_payloads_outside_openapi_schema[null-email]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_rejects_payloads_outside_openapi_schema[null-age]",
+      "typescriptId": "test_create_rejects_payloads_outside_openapi_schema[null-age]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_rejects_payloads_outside_openapi_schema[name-integer]",
+      "typescriptId": "test_create_rejects_payloads_outside_openapi_schema[name-integer]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_rejects_payloads_outside_openapi_schema[email-integer]",
+      "typescriptId": "test_create_rejects_payloads_outside_openapi_schema[email-integer]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_rejects_payloads_outside_openapi_schema[invalid-email]",
+      "typescriptId": "test_create_rejects_payloads_outside_openapi_schema[invalid-email]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_rejects_payloads_outside_openapi_schema[age-below-minimum]",
+      "typescriptId": "test_create_rejects_payloads_outside_openapi_schema[age-below-minimum]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_rejects_payloads_outside_openapi_schema[age-above-maximum]",
+      "typescriptId": "test_create_rejects_payloads_outside_openapi_schema[age-above-maximum]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_rejects_payloads_outside_openapi_schema[age-string]",
+      "typescriptId": "test_create_rejects_payloads_outside_openapi_schema[age-string]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_rejects_payloads_outside_openapi_schema[age-boolean]",
+      "typescriptId": "test_create_rejects_payloads_outside_openapi_schema[age-boolean]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_rejects_payloads_outside_openapi_schema[age-float]",
+      "typescriptId": "test_create_rejects_payloads_outside_openapi_schema[age-float]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_rejects_payloads_outside_openapi_schema[age-object]",
+      "typescriptId": "test_create_rejects_payloads_outside_openapi_schema[age-object]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_accepts_documented_age_boundaries[minimum]",
+      "typescriptId": "test_create_accepts_documented_age_boundaries[minimum]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_accepts_documented_age_boundaries[maximum]",
+      "typescriptId": "test_create_accepts_documented_age_boundaries[maximum]",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_create_accepts_empty_name_allowed_by_contract",
+      "typescriptId": "test_create_accepts_empty_name_allowed_by_contract",
+      "typescriptFile": "tests/api/create-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_rejects_payloads_outside_openapi_schema[missing-name]",
+      "typescriptId": "test_update_rejects_payloads_outside_openapi_schema[missing-name]",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_rejects_payloads_outside_openapi_schema[missing-email]",
+      "typescriptId": "test_update_rejects_payloads_outside_openapi_schema[missing-email]",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_rejects_payloads_outside_openapi_schema[missing-age]",
+      "typescriptId": "test_update_rejects_payloads_outside_openapi_schema[missing-age]",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_rejects_payloads_outside_openapi_schema[null-name]",
+      "typescriptId": "test_update_rejects_payloads_outside_openapi_schema[null-name]",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_rejects_payloads_outside_openapi_schema[null-email]",
+      "typescriptId": "test_update_rejects_payloads_outside_openapi_schema[null-email]",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_rejects_payloads_outside_openapi_schema[null-age]",
+      "typescriptId": "test_update_rejects_payloads_outside_openapi_schema[null-age]",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_rejects_payloads_outside_openapi_schema[name-integer]",
+      "typescriptId": "test_update_rejects_payloads_outside_openapi_schema[name-integer]",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_rejects_payloads_outside_openapi_schema[email-integer]",
+      "typescriptId": "test_update_rejects_payloads_outside_openapi_schema[email-integer]",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_rejects_payloads_outside_openapi_schema[invalid-email]",
+      "typescriptId": "test_update_rejects_payloads_outside_openapi_schema[invalid-email]",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_rejects_payloads_outside_openapi_schema[age-below-minimum]",
+      "typescriptId": "test_update_rejects_payloads_outside_openapi_schema[age-below-minimum]",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_rejects_payloads_outside_openapi_schema[age-above-maximum]",
+      "typescriptId": "test_update_rejects_payloads_outside_openapi_schema[age-above-maximum]",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_rejects_payloads_outside_openapi_schema[age-string]",
+      "typescriptId": "test_update_rejects_payloads_outside_openapi_schema[age-string]",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_rejects_payloads_outside_openapi_schema[age-boolean]",
+      "typescriptId": "test_update_rejects_payloads_outside_openapi_schema[age-boolean]",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_rejects_payloads_outside_openapi_schema[age-float]",
+      "typescriptId": "test_update_rejects_payloads_outside_openapi_schema[age-float]",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_rejects_payloads_outside_openapi_schema[age-object]",
+      "typescriptId": "test_update_rejects_payloads_outside_openapi_schema[age-object]",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_accepts_empty_name_allowed_by_contract",
+      "typescriptId": "test_update_accepts_empty_name_allowed_by_contract",
+      "typescriptFile": "tests/api/update-validation.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_email_reserved_character_round_trips_through_encoded_path[plus]",
+      "typescriptId": "test_email_reserved_character_round_trips_through_encoded_path[plus]",
+      "typescriptFile": "tests/api/protocol.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_email_reserved_character_round_trips_through_encoded_path[percent]",
+      "typescriptId": "test_email_reserved_character_round_trips_through_encoded_path[percent]",
+      "typescriptFile": "tests/api/protocol.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_unknown_user_returns_not_found",
+      "typescriptId": "test_update_unknown_user_returns_not_found",
+      "typescriptFile": "tests/api/update.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_validation::test_update_to_duplicate_email_returns_conflict",
+      "typescriptId": "test_update_to_duplicate_email_returns_conflict",
+      "typescriptFile": "tests/api/update.spec.ts",
+      "scope": "api"
+    },
+    {
+      "source": "tests.test_environment_isolation::test_dev_and_prod_data_is_independent",
+      "typescriptId": "test_dev_and_prod_data_is_independent",
+      "typescriptFile": "tests/api/isolation.spec.ts",
+      "scope": "isolation"
+    }
+  ],
+  "infrastructure": [
+    {
+      "source": "tests.test_client::test_raw_request_sends_any_json_shape[null]",
+      "typescriptEvidence": ["tests/unit/client.test.ts"]
+    },
+    {
+      "source": "tests.test_client::test_raw_request_sends_any_json_shape[array]",
+      "typescriptEvidence": ["tests/unit/client.test.ts"]
+    },
+    {
+      "source": "tests.test_client::test_raw_request_sends_any_json_shape[string]",
+      "typescriptEvidence": ["tests/unit/client.test.ts"]
+    },
+    {
+      "source": "tests.test_client::test_raw_request_sends_content_with_custom_headers",
+      "typescriptEvidence": ["tests/unit/client.test.ts"]
+    },
+    {
+      "source": "tests.test_client::test_raw_request_rejects_json_and_content_together",
+      "typescriptEvidence": ["tests/unit/client.test.ts"]
+    },
+    {
+      "source": "tests.test_contract_trace::test_contract_trace_logs_successful_openapi_checks",
+      "typescriptEvidence": ["tests/unit/contract-trace.test.ts"]
+    },
+    {
+      "source": "tests.test_contract_trace::test_contract_trace_logs_status_failure_before_assertion",
+      "typescriptEvidence": ["tests/unit/contract-trace.test.ts"]
+    },
+    {
+      "source": "tests.test_contract_trace::test_contract_trace_logs_schema_failure",
+      "typescriptEvidence": ["tests/unit/contract-trace.test.ts"]
+    },
+    {
+      "source": "tests.test_contract_trace::test_contract_trace_logs_undeclared_operation",
+      "typescriptEvidence": ["tests/unit/contract-trace.test.ts"]
+    },
+    {
+      "source": "tests.test_contract_trace::test_contract_trace_logs_undeclared_response_status",
+      "typescriptEvidence": ["tests/unit/contract-trace.test.ts"]
+    },
+    {
+      "source": "tests.test_contract_trace::test_contract_trace_logs_content_type_failure",
+      "typescriptEvidence": ["tests/unit/contract-trace.test.ts"]
+    },
+    {
+      "source": "tests.test_contract_trace::test_contract_trace_logs_invalid_json_failure",
+      "typescriptEvidence": ["tests/unit/contract-trace.test.ts"]
+    },
+    {
+      "source": "tests.test_contract_trace::test_contract_trace_logs_empty_204_body",
+      "typescriptEvidence": ["tests/unit/contract-trace.test.ts"]
+    },
+    {
+      "source": "tests.test_contract_trace::test_contract_trace_logs_nonempty_204_body_failure",
+      "typescriptEvidence": ["tests/unit/contract-trace.test.ts"]
+    },
+    {
+      "source": "tests.test_contract_trace::test_contract_trace_is_silent_by_default",
+      "typescriptEvidence": ["tests/unit/contract-trace.test.ts"]
+    },
+    {
+      "source": "tests.test_evidence_documentation::test_schemathesis_case_counts_are_scoped_to_a_ci_run",
+      "typescriptEvidence": ["tests/unit/evidence-documentation.test.ts"]
+    },
+    {
+      "source": "tests.test_generated_resources::test_seeder_resets_creates_verifies_and_cleans_up_resource",
+      "typescriptEvidence": ["tests/unit/generation-resources.test.ts"]
+    },
+    {
+      "source": "tests.test_generated_resources::test_seeder_fails_when_created_resource_cannot_be_verified",
+      "typescriptEvidence": ["tests/unit/generation-resources.test.ts"]
+    },
+    {
+      "source": "tests.test_generated_resources::test_positive_put_uses_same_owned_email_in_path_and_body",
+      "typescriptEvidence": ["tests/unit/generation-resources.test.ts"]
+    },
+    {
+      "source": "tests.test_generated_resources::test_negative_path_and_unrelated_operations_keep_generated_ids",
+      "typescriptEvidence": ["tests/unit/generation-resources.test.ts"]
+    },
+    {
+      "source": "tests.test_http_trace::test_http_trace_logs_exchange_and_redacts_secrets",
+      "typescriptEvidence": ["tests/unit/http-trace.test.ts"]
+    },
+    {
+      "source": "tests.test_http_trace::test_http_trace_is_silent_by_default",
+      "typescriptEvidence": ["tests/unit/http-trace.test.ts"]
+    },
+    {
+      "source": "tests.test_known_bug::test_known_bug_evaluator_accepts_only_matching_signature",
+      "typescriptEvidence": ["tests/unit/baseline.test.ts"]
+    },
+    {
+      "source": "tests.test_known_bug::test_known_bug_evaluator_reports_restored_expected_behavior",
+      "typescriptEvidence": ["tests/unit/baseline.test.ts"]
+    },
+    {
+      "source": "tests.test_known_bug::test_known_bug_evaluator_rejects_a_different_failure_signature",
+      "typescriptEvidence": ["tests/unit/baseline.test.ts"]
+    },
+    {
+      "source": "tests.test_known_bug::test_known_bug_evaluator_does_not_swallow_operational_errors",
+      "typescriptEvidence": ["tests/unit/baseline.test.ts"]
+    },
+    {
+      "source": "tests.test_ndjson_scrubber::test_scrubber_redacts_sensitive_fields_and_configured_secret",
+      "typescriptEvidence": ["tests/unit/scrubber.test.ts"]
+    },
+    {
+      "source": "tests.test_ndjson_scrubber::test_scrubber_rejects_invalid_ndjson_without_replacing_source",
+      "typescriptEvidence": ["tests/unit/scrubber.test.ts"]
+    },
+    {
+      "source": "tests.test_ndjson_scrubber::test_scrubber_accepts_tree_without_raw_ndjson",
+      "typescriptEvidence": ["tests/unit/scrubber.test.ts"]
+    },
+    {
+      "source": "tests.test_ndjson_scrubber::test_cli_reads_secret_from_environment_without_command_line_value",
+      "typescriptEvidence": ["tests/unit/scrubber.test.ts"]
+    },
+    {
+      "source": "tests.test_ndjson_scrubber::test_cli_fails_closed_when_secret_environment_variable_is_missing",
+      "typescriptEvidence": ["tests/unit/scrubber.test.ts"]
+    },
+    {
+      "source": "tests.test_workflow_supply_chain::test_external_github_actions_are_pinned_to_commit_shas",
+      "typescriptEvidence": ["tests/unit/workflow.test.ts"]
+    },
+    {
+      "source": "tests.test_workflow_supply_chain::test_checkout_credentials_are_not_persisted",
+      "typescriptEvidence": ["tests/unit/workflow.test.ts"]
+    },
+    {
+      "source": "tests.test_workflow_supply_chain::test_ndjson_evidence_is_scrubbed_before_artifact_upload",
+      "typescriptEvidence": ["tests/unit/workflow.test.ts"]
+    },
+    {
+      "source": "tests.test_workflow_supply_chain::test_workflow_uses_minimum_repository_permission",
+      "typescriptEvidence": ["tests/unit/workflow.test.ts"]
+    },
+    {
+      "source": "tests.test_workflow_supply_chain::test_application_credential_is_scoped_to_api_test_job",
+      "typescriptEvidence": ["tests/unit/workflow.test.ts"]
+    },
+    {
+      "source": "tests.test_workflow_supply_chain::test_schemathesis_enables_producer_side_sanitization",
+      "typescriptEvidence": ["tests/unit/generation-runner.test.ts"]
+    }
+  ]
+}

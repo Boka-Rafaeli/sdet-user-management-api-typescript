@@ -1,0 +1,11 @@
+{
+  "runUrl": "https://github.com/Boka-Rafaeli/sdet-user-management-api-typescript/actions/runs/36278382852",
+  "commit": "8f979035532b03364080c6dbb3cc6668352ecba0",
+  "imageDigest": "sha256:c80c42ffafccb6ba9cd9a128421445d308225f09902c03aeadbc99e321176bbc",
+  "source": "Downloaded unmodified deterministic reports from verified GitHub Actions artifacts",
+  "scope": [
+    "dev",
+    "prod",
+    "isolation"
+  ]
+}

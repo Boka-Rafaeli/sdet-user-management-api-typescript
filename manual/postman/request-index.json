@@ -1,0 +1,965 @@
+[
+  {
+    "folder": "01 — Пять операций и CRUD",
+    "source": "tests/test_crud.py::test_list_users_matches_contract",
+    "expected": 200,
+    "exploratory": false,
+    "name": "01 Список пользователей [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "01 — Пять операций и CRUD",
+    "source": "tests/test_crud.py::test_create_get_and_list_user",
+    "expected": 201,
+    "exploratory": false,
+    "name": "02 Создать пользователя [expected 201]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "01 — Пять операций и CRUD",
+    "source": "tests/test_crud.py::test_create_get_and_list_user",
+    "expected": 200,
+    "exploratory": false,
+    "name": "03 Получить пользователя по email [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users/{{email_path}}"
+  },
+  {
+    "folder": "01 — Пять операций и CRUD",
+    "source": "tests/test_crud.py::test_update_persists_changes",
+    "expected": 200,
+    "exploratory": false,
+    "name": "04 Обновить name и age [expected 200]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{email_path}}"
+  },
+  {
+    "folder": "01 — Пять операций и CRUD",
+    "source": "tests/test_crud.py::test_update_persists_changes",
+    "expected": 200,
+    "exploratory": false,
+    "name": "05 GET после PUT — проверить сохранение [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users/{{email_path}}"
+  },
+  {
+    "folder": "01 — Пять операций и CRUD",
+    "source": "tests/test_crud.py::test_delete_user_returns_no_content_and_removes_record",
+    "expected": 204,
+    "exploratory": false,
+    "name": "06 Удалить пользователя [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{email_path}}"
+  },
+  {
+    "folder": "01 — Пять операций и CRUD",
+    "source": "tests/test_crud.py::test_delete_user_returns_no_content_and_removes_record",
+    "expected": 200,
+    "exploratory": false,
+    "name": "07 Список после DELETE — проверить отсутствие email [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "02 — Конфликты, missing user, смена email",
+    "source": "tests/test_crud.py::test_duplicate_email_returns_conflict",
+    "expected": 409,
+    "exploratory": false,
+    "name": "Повторный POST того же email [expected 409]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "02 — Конфликты, missing user, смена email",
+    "source": "tests/test_crud.py::test_get_unknown_user_returns_not_found",
+    "expected": 404,
+    "exploratory": false,
+    "name": "GET отсутствующего пользователя [expected 404]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users/{{missing_email_path}}"
+  },
+  {
+    "folder": "02 — Конфликты, missing user, смена email",
+    "source": "tests/test_validation.py::test_update_unknown_user_returns_not_found",
+    "expected": 404,
+    "exploratory": false,
+    "name": "PUT отсутствующего пользователя [expected 404]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{missing_email_path}}"
+  },
+  {
+    "folder": "02 — Конфликты, missing user, смена email",
+    "source": "tests/test_authentication.py::test_delete_unknown_user_with_valid_token_returns_not_found",
+    "expected": 404,
+    "exploratory": false,
+    "name": "DELETE отсутствующего пользователя [expected 404]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{missing_email_path}}"
+  },
+  {
+    "folder": "02 — Конфликты, missing user, смена email",
+    "source": "tests/test_validation.py::test_update_to_duplicate_email_returns_conflict",
+    "expected": 201,
+    "exploratory": false,
+    "name": "Создать второго пользователя для конфликта [expected 201]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "02 — Конфликты, missing user, смена email",
+    "source": "tests/test_validation.py::test_update_to_duplicate_email_returns_conflict",
+    "expected": 409,
+    "exploratory": false,
+    "name": "PUT — заменить email на занятый second_email [expected 409]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{email_path}}"
+  },
+  {
+    "folder": "02 — Конфликты, missing user, смена email",
+    "source": "tests/test_crud.py::test_update_persists_email_change",
+    "expected": 200,
+    "exploratory": false,
+    "name": "PUT — заменить email на свободный renamed_email [expected 200]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{email_path}}"
+  },
+  {
+    "folder": "02 — Конфликты, missing user, смена email",
+    "source": "tests/test_crud.py::test_update_persists_email_change",
+    "expected": 200,
+    "exploratory": false,
+    "name": "GET по новому email после rename [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users/{{renamed_email_path}}"
+  },
+  {
+    "folder": "02 — Конфликты, missing user, смена email",
+    "source": "tests/test_crud.py::test_update_persists_email_change",
+    "expected": 404,
+    "exploratory": false,
+    "name": "GET по старому email после rename [expected 404]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users/{{email_path}}"
+  },
+  {
+    "folder": "02 — Конфликты, missing user, смена email",
+    "source": "tests/test_crud.py::test_update_persists_email_change",
+    "expected": 200,
+    "exploratory": false,
+    "name": "Список после rename — сверить старый и новый email [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "02 — Конфликты, missing user, смена email",
+    "source": "",
+    "expected": 204,
+    "exploratory": false,
+    "name": "Cleanup second_email [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{second_email_path}}"
+  },
+  {
+    "folder": "02 — Конфликты, missing user, смена email",
+    "source": "",
+    "expected": 204,
+    "exploratory": false,
+    "name": "Cleanup renamed_email [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{renamed_email_path}}"
+  },
+  {
+    "folder": "02 — Конфликты, missing user, смена email",
+    "source": "",
+    "expected": 204,
+    "exploratory": false,
+    "name": "Cleanup исходного email [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{email_path}}"
+  },
+  {
+    "folder": "03 — DELETE authentication",
+    "source": "tests/test_authentication.py::test_delete_rejects_missing_or_invalid_authentication",
+    "expected": 201,
+    "exploratory": false,
+    "name": "00 Создать fixture перед auth-case [expected 201]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "03 — DELETE authentication",
+    "source": "tests/test_authentication.py::test_delete_rejects_missing_or_invalid_authentication[missing-header]",
+    "expected": 401,
+    "exploratory": false,
+    "name": "Без заголовка Authentication [expected 401]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{auth_email_path}}"
+  },
+  {
+    "folder": "03 — DELETE authentication",
+    "source": "tests/test_authentication.py::test_delete_rejects_missing_or_invalid_authentication[empty-token]",
+    "expected": 401,
+    "exploratory": false,
+    "name": "Пустой Authentication [expected 401]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{auth_email_path}}"
+  },
+  {
+    "folder": "03 — DELETE authentication",
+    "source": "tests/test_authentication.py::test_delete_rejects_missing_or_invalid_authentication[invalid-token]",
+    "expected": 401,
+    "exploratory": false,
+    "name": "Неверный Authentication [expected 401]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{auth_email_path}}"
+  },
+  {
+    "folder": "03 — DELETE authentication",
+    "source": "tests/test_authentication.py::test_delete_rejects_missing_or_invalid_authentication",
+    "expected": 200,
+    "exploratory": false,
+    "name": "GET после отказа — пользователь должен сохраниться [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users/{{auth_email_path}}"
+  },
+  {
+    "folder": "03 — DELETE authentication",
+    "source": "tests/test_authentication.py::test_delete_rejects_missing_or_invalid_authentication",
+    "expected": 200,
+    "exploratory": false,
+    "name": "Список после auth-case — проверить наличие email [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "03 — DELETE authentication",
+    "source": "",
+    "expected": 204,
+    "exploratory": false,
+    "name": "Cleanup auth fixture с валидным токеном [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{auth_email_path}}"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[missing-name]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "missing-name [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[missing-email]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "missing-email [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[missing-age]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "missing-age [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[null-name]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "null-name [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[null-email]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "null-email [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[null-age]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "null-age [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[name-integer]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "name-integer [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[email-integer]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "email-integer [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[invalid-email]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "invalid-email [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[age-below-minimum]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "age-below-minimum [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[age-above-maximum]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "age-above-maximum [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[age-string]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "age-string [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[age-boolean]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "age-boolean [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[age-float]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "age-float [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_rejects_payloads_outside_openapi_schema[age-object]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "age-object [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_accepts_documented_age_boundaries[minimum]",
+    "expected": 201,
+    "exploratory": false,
+    "name": "age=1 — допустимая граница [expected 201]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_accepts_documented_age_boundaries[maximum]",
+    "expected": 201,
+    "exploratory": false,
+    "name": "age=150 — допустимая граница [expected 201]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "tests/test_validation.py::test_create_accepts_empty_name_allowed_by_contract",
+    "expected": 201,
+    "exploratory": false,
+    "name": "name=\"\" — допустимо по текущему контракту [expected 201]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "",
+    "expected": 200,
+    "exploratory": false,
+    "name": "Прочитать fixture, если он существует [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users/{{candidate_email_path}}"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "",
+    "expected": 204,
+    "exploratory": false,
+    "name": "Cleanup fixture [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{candidate_email_path}}"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "",
+    "expected": 200,
+    "exploratory": false,
+    "name": "GET записи с ключом 42 [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users/42"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "",
+    "expected": 204,
+    "exploratory": false,
+    "name": "Cleanup собственного ключа 42 [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/42"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "",
+    "expected": 200,
+    "exploratory": false,
+    "name": "GET записи с ключом not-an-email [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users/not-an-email"
+  },
+  {
+    "folder": "04 — POST: schema validation",
+    "source": "",
+    "expected": 204,
+    "exploratory": false,
+    "name": "Cleanup собственного ключа not-an-email [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/not-an-email"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "",
+    "expected": 201,
+    "exploratory": false,
+    "name": "00 Создать fixture перед PUT validation [expected 201]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[missing-name]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "missing-name [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[missing-email]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "missing-email [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[missing-age]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "missing-age [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[null-name]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "null-name [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[null-email]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "null-email [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[null-age]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "null-age [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[name-integer]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "name-integer [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[email-integer]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "email-integer [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[invalid-email]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "invalid-email [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[age-below-minimum]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "age-below-minimum [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[age-above-maximum]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "age-above-maximum [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[age-string]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "age-string [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[age-boolean]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "age-boolean [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[age-float]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "age-float [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_rejects_payloads_outside_openapi_schema[age-object]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "age-object [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "tests/test_validation.py::test_update_accepts_empty_name_allowed_by_contract",
+    "expected": 200,
+    "exploratory": false,
+    "name": "name=\"\" — допустимо по текущему контракту [expected 200]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "",
+    "expected": 200,
+    "exploratory": false,
+    "name": "Прочитать fixture, если он существует [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "05 — PUT: schema validation",
+    "source": "",
+    "expected": 204,
+    "exploratory": false,
+    "name": "Cleanup fixture [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{validation_email_path}}"
+  },
+  {
+    "folder": "06 — Non-object JSON и Content-Type",
+    "source": "",
+    "expected": 201,
+    "exploratory": false,
+    "name": "00 Создать fixture для PUT body cases [expected 201]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "06 — Non-object JSON и Content-Type",
+    "source": "tests/test_request_body.py::test_create_rejects_non_object_json_body[array]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "POST: JSON array [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "06 — Non-object JSON и Content-Type",
+    "source": "tests/test_request_body.py::test_create_rejects_non_object_json_body[string]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "POST: JSON string [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "06 — Non-object JSON и Content-Type",
+    "source": "tests/test_request_body.py::test_create_rejects_unsupported_request_media_type",
+    "expected": 400,
+    "exploratory": false,
+    "name": "POST: JSON-текст с Content-Type text/plain [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "06 — Non-object JSON и Content-Type",
+    "source": "tests/test_request_body.py::test_update_rejects_non_object_json_body[array]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "PUT: JSON array [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{body_email_path}}"
+  },
+  {
+    "folder": "06 — Non-object JSON и Content-Type",
+    "source": "tests/test_request_body.py::test_update_rejects_non_object_json_body[string]",
+    "expected": 400,
+    "exploratory": false,
+    "name": "PUT: JSON string [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{body_email_path}}"
+  },
+  {
+    "folder": "06 — Non-object JSON и Content-Type",
+    "source": "tests/test_request_body.py::test_update_rejects_unsupported_request_media_type",
+    "expected": 400,
+    "exploratory": false,
+    "name": "PUT: JSON-текст с Content-Type text/plain [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{body_email_path}}"
+  },
+  {
+    "folder": "06 — Non-object JSON и Content-Type",
+    "source": "",
+    "expected": 200,
+    "exploratory": false,
+    "name": "GET после PUT — проверить исходное состояние [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users/{{body_email_path}}"
+  },
+  {
+    "folder": "06 — Non-object JSON и Content-Type",
+    "source": "",
+    "expected": 200,
+    "exploratory": false,
+    "name": "GET после POST text/plain — диагностировать создание [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users/{{media_email_path}}"
+  },
+  {
+    "folder": "06 — Non-object JSON и Content-Type",
+    "source": "",
+    "expected": 204,
+    "exploratory": false,
+    "name": "Cleanup PUT fixture [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{body_email_path}}"
+  },
+  {
+    "folder": "06 — Non-object JSON и Content-Type",
+    "source": "",
+    "expected": 204,
+    "exploratory": false,
+    "name": "Cleanup ошибочно созданного POST fixture [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{media_email_path}}"
+  },
+  {
+    "folder": "07 — URL encoding: плюс и процент",
+    "source": "tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[plus]",
+    "expected": 201,
+    "exploratory": false,
+    "name": "plus: POST [expected 201]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "07 — URL encoding: плюс и процент",
+    "source": "tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[plus]",
+    "expected": 200,
+    "exploratory": false,
+    "name": "plus: GET [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users/{{plus_email_path}}"
+  },
+  {
+    "folder": "07 — URL encoding: плюс и процент",
+    "source": "tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[plus]",
+    "expected": 204,
+    "exploratory": false,
+    "name": "plus: DELETE [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{plus_email_path}}"
+  },
+  {
+    "folder": "07 — URL encoding: плюс и процент",
+    "source": "tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[plus]",
+    "expected": 200,
+    "exploratory": false,
+    "name": "plus: list после DELETE [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "07 — URL encoding: плюс и процент",
+    "source": "tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[percent]",
+    "expected": 201,
+    "exploratory": false,
+    "name": "percent: POST [expected 201]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "07 — URL encoding: плюс и процент",
+    "source": "tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[percent]",
+    "expected": 200,
+    "exploratory": false,
+    "name": "percent: GET [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users/{{percent_email_path}}"
+  },
+  {
+    "folder": "07 — URL encoding: плюс и процент",
+    "source": "tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[percent]",
+    "expected": 204,
+    "exploratory": false,
+    "name": "percent: DELETE [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{percent_email_path}}"
+  },
+  {
+    "folder": "07 — URL encoding: плюс и процент",
+    "source": "tests/test_validation.py::test_email_reserved_character_round_trips_through_encoded_path[percent]",
+    "expected": 200,
+    "exploratory": false,
+    "name": "percent: list после DELETE [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "08 — Изоляция dev и prod",
+    "source": "tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent",
+    "expected": 201,
+    "exploratory": false,
+    "name": "01 Создать в dev [expected 201]",
+    "method": "POST",
+    "url": "{{base_url}}/dev/users"
+  },
+  {
+    "folder": "08 — Изоляция dev и prod",
+    "source": "tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent",
+    "expected": 201,
+    "exploratory": false,
+    "name": "02 Создать тот же email в prod [expected 201]",
+    "method": "POST",
+    "url": "{{base_url}}/prod/users"
+  },
+  {
+    "folder": "08 — Изоляция dev и prod",
+    "source": "tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent",
+    "expected": 200,
+    "exploratory": false,
+    "name": "03 PUT только в dev [expected 200]",
+    "method": "PUT",
+    "url": "{{base_url}}/dev/users/{{isolation_email_path}}"
+  },
+  {
+    "folder": "08 — Изоляция dev и prod",
+    "source": "tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent",
+    "expected": 200,
+    "exploratory": false,
+    "name": "04 Проверить prod после dev PUT [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/prod/users/{{isolation_email_path}}"
+  },
+  {
+    "folder": "08 — Изоляция dev и prod",
+    "source": "tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent",
+    "expected": 204,
+    "exploratory": false,
+    "name": "05 DELETE только в dev [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/dev/users/{{isolation_email_path}}"
+  },
+  {
+    "folder": "08 — Изоляция dev и prod",
+    "source": "tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent",
+    "expected": 200,
+    "exploratory": false,
+    "name": "06 Список dev после DELETE [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/dev/users"
+  },
+  {
+    "folder": "08 — Изоляция dev и prod",
+    "source": "tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent",
+    "expected": 200,
+    "exploratory": false,
+    "name": "07 Проверить prod после dev DELETE [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/prod/users/{{isolation_email_path}}"
+  },
+  {
+    "folder": "08 — Изоляция dev и prod",
+    "source": "tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent",
+    "expected": 204,
+    "exploratory": false,
+    "name": "08 Cleanup prod [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/prod/users/{{isolation_email_path}}"
+  },
+  {
+    "folder": "08 — Изоляция dev и prod",
+    "source": "tests/test_environment_isolation.py::test_dev_and_prod_data_is_independent",
+    "expected": 204,
+    "exploratory": false,
+    "name": "09 Cleanup dev — если не удалён ранее [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/dev/users/{{isolation_email_path}}"
+  },
+  {
+    "folder": "09 — Дополнительно: no body, null, malformed JSON",
+    "source": "",
+    "expected": 201,
+    "exploratory": false,
+    "name": "00 Создать fixture для PUT [expected 201]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "09 — Дополнительно: no body, null, malformed JSON",
+    "source": "Дополнительное ручное упражнение",
+    "expected": 400,
+    "exploratory": true,
+    "name": "POST: No body — ноль байтов [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "09 — Дополнительно: no body, null, malformed JSON",
+    "source": "tests/test_client.py::test_raw_request_sends_any_json_shape[null] (unit, только POST; не проверяет поведение сервера)",
+    "expected": 400,
+    "exploratory": true,
+    "name": "POST: JSON null — четыре байта [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "09 — Дополнительно: no body, null, malformed JSON",
+    "source": "Дополнительное ручное упражнение",
+    "expected": 400,
+    "exploratory": true,
+    "name": "POST: Malformed JSON — незакрытый объект [expected 400]",
+    "method": "POST",
+    "url": "{{base_url}}/{{env}}/users"
+  },
+  {
+    "folder": "09 — Дополнительно: no body, null, malformed JSON",
+    "source": "Дополнительное ручное упражнение",
+    "expected": 400,
+    "exploratory": true,
+    "name": "PUT: No body — ноль байтов [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{raw_email_path}}"
+  },
+  {
+    "folder": "09 — Дополнительно: no body, null, malformed JSON",
+    "source": "tests/test_client.py::test_raw_request_sends_any_json_shape[null] (unit, только POST; не проверяет поведение сервера)",
+    "expected": 400,
+    "exploratory": true,
+    "name": "PUT: JSON null — четыре байта [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{raw_email_path}}"
+  },
+  {
+    "folder": "09 — Дополнительно: no body, null, malformed JSON",
+    "source": "Дополнительное ручное упражнение",
+    "expected": 400,
+    "exploratory": true,
+    "name": "PUT: Malformed JSON — незакрытый объект [expected 400]",
+    "method": "PUT",
+    "url": "{{base_url}}/{{env}}/users/{{raw_email_path}}"
+  },
+  {
+    "folder": "09 — Дополнительно: no body, null, malformed JSON",
+    "source": "",
+    "expected": 200,
+    "exploratory": false,
+    "name": "GET после невалидного PUT [expected 200]",
+    "method": "GET",
+    "url": "{{base_url}}/{{env}}/users/{{raw_email_path}}"
+  },
+  {
+    "folder": "09 — Дополнительно: no body, null, malformed JSON",
+    "source": "",
+    "expected": 204,
+    "exploratory": false,
+    "name": "Cleanup raw fixture [expected 204]",
+    "method": "DELETE",
+    "url": "{{base_url}}/{{env}}/users/{{raw_email_path}}"
+  }
+]
