@@ -43,5 +43,5 @@ corpus. This index records actual implementation order rather than rewriting his
 | 24   | [8f97903 ci(api): run isolated scopes and protect artifacts](https://github.com/Boka-Rafaeli/sdet-user-management-api-typescript/commit/8f979035532b03364080c6dbb3cc6668352ecba0)                      | Clean installation; cumulative checks and implemented suites |
 | 25   | [2c4ba98 fix(generator): preserve the stricter reference email oracle](https://github.com/Boka-Rafaeli/sdet-user-management-api-typescript/commit/2c4ba98c308d64f03ca7a082c11377b76836fd0d)            | Clean installation; cumulative checks and implemented suites |
 
-The documentation and final parity commits follow this index in `git log --reverse --oneline`.
+The documentation commit is [c12c2c0 docs: publish migration guide manual assets and verified reports](https://github.com/Boka-Rafaeli/sdet-user-management-api-typescript/commit/c12c2c0cc9db7bb37eb6bf55a9f412d79d98ed91). The final parity commit follows it in `git log --reverse --oneline`.
 The release tag identifies the final verified state; an index cannot include its own future SHA.

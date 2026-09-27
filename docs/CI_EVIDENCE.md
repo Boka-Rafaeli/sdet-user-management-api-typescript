@@ -17,13 +17,13 @@ commit; see the release notes for that exact run and SHA.
 
 ## Required infrastructure improvements
 
-| Plan requirement                                     | Automated evidence                                                                  |
-| ---------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| U01 file failures and secret variants                | `tests/unit/scrubber.test.ts`, `redaction.test.ts`, `evidence.test.ts`              |
-| U02 HTTP semantics                                   | `tests/unit/client.test.ts`, live API scenarios and `http-trace.test.ts`            |
-| U03 configuration                                    | `tests/unit/config.test.ts`                                                         |
-| U04 contract oracle                                  | `tests/unit/contract.test.ts`, `contract-trace.test.ts`, `generation-email.test.ts` |
-| U05 generated resource errors and cleanup            | `tests/unit/generation-resources.test.ts`                                           |
-| U06 generation, replay, shrinking and bounds         | `tests/unit/generation-{schema,checks,fuzz,runner}.test.ts`                         |
-| I01 actual runner and report failures                | `tests/infrastructure/gate.test.ts` and `tests/runner/gate.spec.ts`                 |
-| I02 CI failure continuation and artifact suppression | The three linked negative-control runs above                                        |
+| Plan requirement                                     | Automated evidence                                                                          |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| U01 file failures and secret variants                | `tests/unit/scrubber.test.ts`, `redaction.test.ts`, `evidence.test.ts`                      |
+| U02 HTTP semantics                                   | `tests/unit/client.test.ts`, `tests/unit/native-transport.test.ts` and `http-trace.test.ts` |
+| U03 configuration                                    | `tests/unit/config.test.ts`                                                                 |
+| U04 contract oracle                                  | `tests/unit/contract.test.ts`, `contract-trace.test.ts`, `generation-email.test.ts`         |
+| U05 generated resource errors and cleanup            | `tests/unit/generation-resources.test.ts`                                                   |
+| U06 generation, replay, shrinking and bounds         | `tests/unit/generation-{schema,checks,fuzz,runner}.test.ts`                                 |
+| I01 actual runner and report failures                | `tests/infrastructure/gate.test.ts` and `tests/runner/gate.spec.ts`                         |
+| I02 CI failure continuation and artifact suppression | The three linked negative-control runs above                                                |

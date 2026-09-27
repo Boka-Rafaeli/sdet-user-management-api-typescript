@@ -1,0 +1,634 @@
+{
+  "source": "Fresh local Python reference run on 2026-09-26; original snapshot hashes in source-sha256.json",
+  "imageDigest": "sha256:c80c42ffafccb6ba9cd9a128421445d308225f09902c03aeadbc99e321176bbc",
+  "scopes": {
+    "unit": {
+      "counts": {
+        "PASS": 37,
+        "XFAIL": 0,
+        "FAIL": 0
+      },
+      "cases": [
+        {
+          "id": "test_raw_request_sends_any_json_shape[null]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_raw_request_sends_any_json_shape[array]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_raw_request_sends_any_json_shape[string]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_raw_request_sends_content_with_custom_headers",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_raw_request_rejects_json_and_content_together",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_contract_trace_logs_successful_openapi_checks",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_contract_trace_logs_status_failure_before_assertion",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_contract_trace_logs_schema_failure",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_contract_trace_logs_undeclared_operation",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_contract_trace_logs_undeclared_response_status",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_contract_trace_logs_content_type_failure",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_contract_trace_logs_invalid_json_failure",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_contract_trace_logs_empty_204_body",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_contract_trace_logs_nonempty_204_body_failure",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_contract_trace_is_silent_by_default",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_schemathesis_case_counts_are_scoped_to_a_ci_run",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_seeder_resets_creates_verifies_and_cleans_up_resource",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_seeder_fails_when_created_resource_cannot_be_verified",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_positive_put_uses_same_owned_email_in_path_and_body",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_negative_path_and_unrelated_operations_keep_generated_ids",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_http_trace_logs_exchange_and_redacts_secrets",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_http_trace_is_silent_by_default",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_known_bug_evaluator_accepts_only_matching_signature",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_known_bug_evaluator_reports_restored_expected_behavior",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_known_bug_evaluator_rejects_a_different_failure_signature",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_known_bug_evaluator_does_not_swallow_operational_errors",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_scrubber_redacts_sensitive_fields_and_configured_secret",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_scrubber_rejects_invalid_ndjson_without_replacing_source",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_scrubber_accepts_tree_without_raw_ndjson",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_cli_reads_secret_from_environment_without_command_line_value",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_cli_fails_closed_when_secret_environment_variable_is_missing",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_external_github_actions_are_pinned_to_commit_shas",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_checkout_credentials_are_not_persisted",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_ndjson_evidence_is_scrubbed_before_artifact_upload",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_workflow_uses_minimum_repository_permission",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_application_credential_is_scoped_to_api_test_job",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_schemathesis_enables_producer_side_sanitization",
+          "outcome": "PASS"
+        }
+      ]
+    },
+    "dev": {
+      "counts": {
+        "PASS": 35,
+        "XFAIL": 20,
+        "FAIL": 0
+      },
+      "cases": [
+        {
+          "id": "test_delete_rejects_missing_or_invalid_authentication[missing-header]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_delete_rejects_missing_or_invalid_authentication[empty-token]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_delete_rejects_missing_or_invalid_authentication[invalid-token]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_delete_unknown_user_with_valid_token_returns_not_found",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_list_users_matches_contract",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_get_and_list_user",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_persists_changes",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_update_persists_email_change",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_delete_user_returns_no_content_and_removes_record",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_duplicate_email_returns_conflict",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_get_unknown_user_returns_not_found",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_create_rejects_non_object_json_body[array]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_create_rejects_non_object_json_body[string]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_update_rejects_non_object_json_body[array]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_update_rejects_non_object_json_body[string]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_create_rejects_unsupported_request_media_type",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_update_rejects_unsupported_request_media_type",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[missing-name]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[missing-email]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[missing-age]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[null-name]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[null-email]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[null-age]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[name-integer]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[email-integer]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[invalid-email]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[age-below-minimum]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[age-above-maximum]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[age-string]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[age-boolean]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[age-float]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[age-object]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_accepts_documented_age_boundaries[minimum]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_accepts_documented_age_boundaries[maximum]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_accepts_empty_name_allowed_by_contract",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[missing-name]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[missing-email]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[missing-age]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[null-name]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[null-email]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[null-age]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[name-integer]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[email-integer]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[invalid-email]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[age-below-minimum]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[age-above-maximum]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[age-string]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[age-boolean]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[age-float]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[age-object]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_accepts_empty_name_allowed_by_contract",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_email_reserved_character_round_trips_through_encoded_path[plus]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_email_reserved_character_round_trips_through_encoded_path[percent]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_unknown_user_returns_not_found",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_to_duplicate_email_returns_conflict",
+          "outcome": "PASS"
+        }
+      ]
+    },
+    "prod": {
+      "counts": {
+        "PASS": 38,
+        "XFAIL": 17,
+        "FAIL": 0
+      },
+      "cases": [
+        {
+          "id": "test_delete_rejects_missing_or_invalid_authentication[missing-header]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_delete_rejects_missing_or_invalid_authentication[empty-token]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_delete_rejects_missing_or_invalid_authentication[invalid-token]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_delete_unknown_user_with_valid_token_returns_not_found",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_list_users_matches_contract",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_get_and_list_user",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_persists_changes",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_update_persists_email_change",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_delete_user_returns_no_content_and_removes_record",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_duplicate_email_returns_conflict",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_get_unknown_user_returns_not_found",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_create_rejects_non_object_json_body[array]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_create_rejects_non_object_json_body[string]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_update_rejects_non_object_json_body[array]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_update_rejects_non_object_json_body[string]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_create_rejects_unsupported_request_media_type",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_update_rejects_unsupported_request_media_type",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[missing-name]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[missing-email]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[missing-age]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[null-name]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[null-email]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[null-age]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[name-integer]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[email-integer]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[invalid-email]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[age-below-minimum]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[age-above-maximum]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[age-string]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[age-boolean]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[age-float]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_rejects_payloads_outside_openapi_schema[age-object]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_accepts_documented_age_boundaries[minimum]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_accepts_documented_age_boundaries[maximum]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_create_accepts_empty_name_allowed_by_contract",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[missing-name]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[missing-email]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[missing-age]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[null-name]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[null-email]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[null-age]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[name-integer]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[email-integer]",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[invalid-email]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[age-below-minimum]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[age-above-maximum]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[age-string]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[age-boolean]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[age-float]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_rejects_payloads_outside_openapi_schema[age-object]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_accepts_empty_name_allowed_by_contract",
+          "outcome": "XFAIL"
+        },
+        {
+          "id": "test_email_reserved_character_round_trips_through_encoded_path[plus]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_email_reserved_character_round_trips_through_encoded_path[percent]",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_unknown_user_returns_not_found",
+          "outcome": "PASS"
+        },
+        {
+          "id": "test_update_to_duplicate_email_returns_conflict",
+          "outcome": "PASS"
+        }
+      ]
+    },
+    "isolation": {
+      "counts": {
+        "PASS": 1,
+        "XFAIL": 0,
+        "FAIL": 0
+      },
+      "cases": [
+        {
+          "id": "test_dev_and_prod_data_is_independent",
+          "outcome": "PASS"
+        }
+      ]
+    }
+  }
+}
