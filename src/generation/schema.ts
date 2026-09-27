@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { Ajv } from 'ajv';
 import { parse } from 'yaml';
 import type { GeneratedCase, Operation, Parameter, Schema } from './types.js';
+import { generatedEmailValid } from './email-format.js';
 
 const METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'TRACE'];
 // Schemathesis 4.25.2 DEFAULT_UNEXPECTED_METHODS; QUERY is intentional, HEAD is implicit.
@@ -13,7 +14,7 @@ const validator = new Ajv({
   useDefaults: false,
   removeAdditional: false,
 });
-validator.addFormat('email', { type: 'string', validate: (value: string) => value.includes('@') });
+validator.addFormat('email', { type: 'string', validate: generatedEmailValid });
 export const schemaValid = (schema: Schema, value: unknown): boolean =>
   Boolean(validator.validate(schema, value));
 

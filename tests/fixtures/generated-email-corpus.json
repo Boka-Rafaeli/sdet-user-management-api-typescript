@@ -1,0 +1,2846 @@
+{
+  "oracle": "jsonschema_rs 0.51.0 Draft4Validator(validate_formats=True)",
+  "origin": "Captured from the original project locked dependency during TypeScript migration. This JSON fixture is consumed without Python.",
+  "cases": [
+    {
+      "value": "a@b",
+      "valid": true
+    },
+    {
+      "value": "a@example.com",
+      "valid": true
+    },
+    {
+      "value": "a@",
+      "valid": false
+    },
+    {
+      "value": "a@-b",
+      "valid": false
+    },
+    {
+      "value": "a@b-",
+      "valid": false
+    },
+    {
+      "value": "a@b_c",
+      "valid": false
+    },
+    {
+      "value": "a@b..c",
+      "valid": false
+    },
+    {
+      "value": "a@b.",
+      "valid": false
+    },
+    {
+      "value": "a@localhost",
+      "valid": true
+    },
+    {
+      "value": "a@ü",
+      "valid": false
+    },
+    {
+      "value": "a@xn--bcher-kva.de",
+      "valid": true
+    },
+    {
+      "value": "a@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "a@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "a@xn--a",
+      "valid": false
+    },
+    {
+      "value": "a@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "a@[127.0.0.1]",
+      "valid": true
+    },
+    {
+      "value": "a@[IPv6:::1]",
+      "valid": true
+    },
+    {
+      "value": "a@[::1]",
+      "valid": false
+    },
+    {
+      "value": "a@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "a@1",
+      "valid": true
+    },
+    {
+      "value": "a@1.2.3.4",
+      "valid": true
+    },
+    {
+      "value": "a@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": true
+    },
+    {
+      "value": "a@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "a@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": true
+    },
+    {
+      "value": "@b",
+      "valid": false
+    },
+    {
+      "value": "@example.com",
+      "valid": false
+    },
+    {
+      "value": "@",
+      "valid": false
+    },
+    {
+      "value": "@-b",
+      "valid": false
+    },
+    {
+      "value": "@b-",
+      "valid": false
+    },
+    {
+      "value": "@b_c",
+      "valid": false
+    },
+    {
+      "value": "@b..c",
+      "valid": false
+    },
+    {
+      "value": "@b.",
+      "valid": false
+    },
+    {
+      "value": "@localhost",
+      "valid": false
+    },
+    {
+      "value": "@ü",
+      "valid": false
+    },
+    {
+      "value": "@xn--bcher-kva.de",
+      "valid": false
+    },
+    {
+      "value": "@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "@xn--a",
+      "valid": false
+    },
+    {
+      "value": "@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "@[127.0.0.1]",
+      "valid": false
+    },
+    {
+      "value": "@[IPv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "@[::1]",
+      "valid": false
+    },
+    {
+      "value": "@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "@1",
+      "valid": false
+    },
+    {
+      "value": "@1.2.3.4",
+      "valid": false
+    },
+    {
+      "value": "@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": false
+    },
+    {
+      "value": "a..b@b",
+      "valid": false
+    },
+    {
+      "value": "a..b@example.com",
+      "valid": false
+    },
+    {
+      "value": "a..b@",
+      "valid": false
+    },
+    {
+      "value": "a..b@-b",
+      "valid": false
+    },
+    {
+      "value": "a..b@b-",
+      "valid": false
+    },
+    {
+      "value": "a..b@b_c",
+      "valid": false
+    },
+    {
+      "value": "a..b@b..c",
+      "valid": false
+    },
+    {
+      "value": "a..b@b.",
+      "valid": false
+    },
+    {
+      "value": "a..b@localhost",
+      "valid": false
+    },
+    {
+      "value": "a..b@ü",
+      "valid": false
+    },
+    {
+      "value": "a..b@xn--bcher-kva.de",
+      "valid": false
+    },
+    {
+      "value": "a..b@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "a..b@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "a..b@xn--a",
+      "valid": false
+    },
+    {
+      "value": "a..b@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "a..b@[127.0.0.1]",
+      "valid": false
+    },
+    {
+      "value": "a..b@[IPv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "a..b@[::1]",
+      "valid": false
+    },
+    {
+      "value": "a..b@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "a..b@1",
+      "valid": false
+    },
+    {
+      "value": "a..b@1.2.3.4",
+      "valid": false
+    },
+    {
+      "value": "a..b@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "a..b@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "a..b@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": false
+    },
+    {
+      "value": "a.b@b",
+      "valid": true
+    },
+    {
+      "value": "a.b@example.com",
+      "valid": true
+    },
+    {
+      "value": "a.b@",
+      "valid": false
+    },
+    {
+      "value": "a.b@-b",
+      "valid": false
+    },
+    {
+      "value": "a.b@b-",
+      "valid": false
+    },
+    {
+      "value": "a.b@b_c",
+      "valid": false
+    },
+    {
+      "value": "a.b@b..c",
+      "valid": false
+    },
+    {
+      "value": "a.b@b.",
+      "valid": false
+    },
+    {
+      "value": "a.b@localhost",
+      "valid": true
+    },
+    {
+      "value": "a.b@ü",
+      "valid": false
+    },
+    {
+      "value": "a.b@xn--bcher-kva.de",
+      "valid": true
+    },
+    {
+      "value": "a.b@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "a.b@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "a.b@xn--a",
+      "valid": false
+    },
+    {
+      "value": "a.b@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "a.b@[127.0.0.1]",
+      "valid": true
+    },
+    {
+      "value": "a.b@[IPv6:::1]",
+      "valid": true
+    },
+    {
+      "value": "a.b@[::1]",
+      "valid": false
+    },
+    {
+      "value": "a.b@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "a.b@1",
+      "valid": true
+    },
+    {
+      "value": "a.b@1.2.3.4",
+      "valid": true
+    },
+    {
+      "value": "a.b@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": true
+    },
+    {
+      "value": "a.b@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "a.b@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": true
+    },
+    {
+      "value": ".a@b",
+      "valid": false
+    },
+    {
+      "value": ".a@example.com",
+      "valid": false
+    },
+    {
+      "value": ".a@",
+      "valid": false
+    },
+    {
+      "value": ".a@-b",
+      "valid": false
+    },
+    {
+      "value": ".a@b-",
+      "valid": false
+    },
+    {
+      "value": ".a@b_c",
+      "valid": false
+    },
+    {
+      "value": ".a@b..c",
+      "valid": false
+    },
+    {
+      "value": ".a@b.",
+      "valid": false
+    },
+    {
+      "value": ".a@localhost",
+      "valid": false
+    },
+    {
+      "value": ".a@ü",
+      "valid": false
+    },
+    {
+      "value": ".a@xn--bcher-kva.de",
+      "valid": false
+    },
+    {
+      "value": ".a@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": ".a@ab--cd",
+      "valid": false
+    },
+    {
+      "value": ".a@xn--a",
+      "valid": false
+    },
+    {
+      "value": ".a@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": ".a@[127.0.0.1]",
+      "valid": false
+    },
+    {
+      "value": ".a@[IPv6:::1]",
+      "valid": false
+    },
+    {
+      "value": ".a@[::1]",
+      "valid": false
+    },
+    {
+      "value": ".a@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": ".a@1",
+      "valid": false
+    },
+    {
+      "value": ".a@1.2.3.4",
+      "valid": false
+    },
+    {
+      "value": ".a@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": ".a@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": ".a@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": false
+    },
+    {
+      "value": "a.@b",
+      "valid": false
+    },
+    {
+      "value": "a.@example.com",
+      "valid": false
+    },
+    {
+      "value": "a.@",
+      "valid": false
+    },
+    {
+      "value": "a.@-b",
+      "valid": false
+    },
+    {
+      "value": "a.@b-",
+      "valid": false
+    },
+    {
+      "value": "a.@b_c",
+      "valid": false
+    },
+    {
+      "value": "a.@b..c",
+      "valid": false
+    },
+    {
+      "value": "a.@b.",
+      "valid": false
+    },
+    {
+      "value": "a.@localhost",
+      "valid": false
+    },
+    {
+      "value": "a.@ü",
+      "valid": false
+    },
+    {
+      "value": "a.@xn--bcher-kva.de",
+      "valid": false
+    },
+    {
+      "value": "a.@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "a.@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "a.@xn--a",
+      "valid": false
+    },
+    {
+      "value": "a.@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "a.@[127.0.0.1]",
+      "valid": false
+    },
+    {
+      "value": "a.@[IPv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "a.@[::1]",
+      "valid": false
+    },
+    {
+      "value": "a.@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "a.@1",
+      "valid": false
+    },
+    {
+      "value": "a.@1.2.3.4",
+      "valid": false
+    },
+    {
+      "value": "a.@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "a.@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "a.@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": false
+    },
+    {
+      "value": "\"a b\"@b",
+      "valid": true
+    },
+    {
+      "value": "\"a b\"@example.com",
+      "valid": true
+    },
+    {
+      "value": "\"a b\"@",
+      "valid": false
+    },
+    {
+      "value": "\"a b\"@-b",
+      "valid": false
+    },
+    {
+      "value": "\"a b\"@b-",
+      "valid": false
+    },
+    {
+      "value": "\"a b\"@b_c",
+      "valid": false
+    },
+    {
+      "value": "\"a b\"@b..c",
+      "valid": false
+    },
+    {
+      "value": "\"a b\"@b.",
+      "valid": false
+    },
+    {
+      "value": "\"a b\"@localhost",
+      "valid": true
+    },
+    {
+      "value": "\"a b\"@ü",
+      "valid": false
+    },
+    {
+      "value": "\"a b\"@xn--bcher-kva.de",
+      "valid": true
+    },
+    {
+      "value": "\"a b\"@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "\"a b\"@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "\"a b\"@xn--a",
+      "valid": false
+    },
+    {
+      "value": "\"a b\"@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "\"a b\"@[127.0.0.1]",
+      "valid": true
+    },
+    {
+      "value": "\"a b\"@[IPv6:::1]",
+      "valid": true
+    },
+    {
+      "value": "\"a b\"@[::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a b\"@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a b\"@1",
+      "valid": true
+    },
+    {
+      "value": "\"a b\"@1.2.3.4",
+      "valid": true
+    },
+    {
+      "value": "\"a b\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": true
+    },
+    {
+      "value": "\"a b\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "\"a b\"@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": true
+    },
+    {
+      "value": "\"ü\"@b",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@example.com",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@-b",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@b-",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@b_c",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@b..c",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@b.",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@localhost",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@ü",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@xn--bcher-kva.de",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@xn--a",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@[127.0.0.1]",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@[IPv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@[::1]",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@1",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@1.2.3.4",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "\"ü\"@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": false
+    },
+    {
+      "value": "ü@b",
+      "valid": true
+    },
+    {
+      "value": "ü@example.com",
+      "valid": true
+    },
+    {
+      "value": "ü@",
+      "valid": false
+    },
+    {
+      "value": "ü@-b",
+      "valid": false
+    },
+    {
+      "value": "ü@b-",
+      "valid": false
+    },
+    {
+      "value": "ü@b_c",
+      "valid": false
+    },
+    {
+      "value": "ü@b..c",
+      "valid": false
+    },
+    {
+      "value": "ü@b.",
+      "valid": false
+    },
+    {
+      "value": "ü@localhost",
+      "valid": true
+    },
+    {
+      "value": "ü@ü",
+      "valid": false
+    },
+    {
+      "value": "ü@xn--bcher-kva.de",
+      "valid": true
+    },
+    {
+      "value": "ü@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "ü@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "ü@xn--a",
+      "valid": false
+    },
+    {
+      "value": "ü@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "ü@[127.0.0.1]",
+      "valid": true
+    },
+    {
+      "value": "ü@[IPv6:::1]",
+      "valid": true
+    },
+    {
+      "value": "ü@[::1]",
+      "valid": false
+    },
+    {
+      "value": "ü@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "ü@1",
+      "valid": true
+    },
+    {
+      "value": "ü@1.2.3.4",
+      "valid": true
+    },
+    {
+      "value": "ü@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": true
+    },
+    {
+      "value": "ü@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "ü@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": true
+    },
+    {
+      "value": "雪@b",
+      "valid": true
+    },
+    {
+      "value": "雪@example.com",
+      "valid": true
+    },
+    {
+      "value": "雪@",
+      "valid": false
+    },
+    {
+      "value": "雪@-b",
+      "valid": false
+    },
+    {
+      "value": "雪@b-",
+      "valid": false
+    },
+    {
+      "value": "雪@b_c",
+      "valid": false
+    },
+    {
+      "value": "雪@b..c",
+      "valid": false
+    },
+    {
+      "value": "雪@b.",
+      "valid": false
+    },
+    {
+      "value": "雪@localhost",
+      "valid": true
+    },
+    {
+      "value": "雪@ü",
+      "valid": false
+    },
+    {
+      "value": "雪@xn--bcher-kva.de",
+      "valid": true
+    },
+    {
+      "value": "雪@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "雪@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "雪@xn--a",
+      "valid": false
+    },
+    {
+      "value": "雪@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "雪@[127.0.0.1]",
+      "valid": true
+    },
+    {
+      "value": "雪@[IPv6:::1]",
+      "valid": true
+    },
+    {
+      "value": "雪@[::1]",
+      "valid": false
+    },
+    {
+      "value": "雪@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "雪@1",
+      "valid": true
+    },
+    {
+      "value": "雪@1.2.3.4",
+      "valid": true
+    },
+    {
+      "value": "雪@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": true
+    },
+    {
+      "value": "雪@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "雪@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": true
+    },
+    {
+      "value": "😀@b",
+      "valid": false
+    },
+    {
+      "value": "😀@example.com",
+      "valid": false
+    },
+    {
+      "value": "😀@",
+      "valid": false
+    },
+    {
+      "value": "😀@-b",
+      "valid": false
+    },
+    {
+      "value": "😀@b-",
+      "valid": false
+    },
+    {
+      "value": "😀@b_c",
+      "valid": false
+    },
+    {
+      "value": "😀@b..c",
+      "valid": false
+    },
+    {
+      "value": "😀@b.",
+      "valid": false
+    },
+    {
+      "value": "😀@localhost",
+      "valid": false
+    },
+    {
+      "value": "😀@ü",
+      "valid": false
+    },
+    {
+      "value": "😀@xn--bcher-kva.de",
+      "valid": false
+    },
+    {
+      "value": "😀@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "😀@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "😀@xn--a",
+      "valid": false
+    },
+    {
+      "value": "😀@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "😀@[127.0.0.1]",
+      "valid": false
+    },
+    {
+      "value": "😀@[IPv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "😀@[::1]",
+      "valid": false
+    },
+    {
+      "value": "😀@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "😀@1",
+      "valid": false
+    },
+    {
+      "value": "😀@1.2.3.4",
+      "valid": false
+    },
+    {
+      "value": "😀@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "😀@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "😀@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": false
+    },
+    {
+      "value": "a b@b",
+      "valid": false
+    },
+    {
+      "value": "a b@example.com",
+      "valid": false
+    },
+    {
+      "value": "a b@",
+      "valid": false
+    },
+    {
+      "value": "a b@-b",
+      "valid": false
+    },
+    {
+      "value": "a b@b-",
+      "valid": false
+    },
+    {
+      "value": "a b@b_c",
+      "valid": false
+    },
+    {
+      "value": "a b@b..c",
+      "valid": false
+    },
+    {
+      "value": "a b@b.",
+      "valid": false
+    },
+    {
+      "value": "a b@localhost",
+      "valid": false
+    },
+    {
+      "value": "a b@ü",
+      "valid": false
+    },
+    {
+      "value": "a b@xn--bcher-kva.de",
+      "valid": false
+    },
+    {
+      "value": "a b@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "a b@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "a b@xn--a",
+      "valid": false
+    },
+    {
+      "value": "a b@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "a b@[127.0.0.1]",
+      "valid": false
+    },
+    {
+      "value": "a b@[IPv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "a b@[::1]",
+      "valid": false
+    },
+    {
+      "value": "a b@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "a b@1",
+      "valid": false
+    },
+    {
+      "value": "a b@1.2.3.4",
+      "valid": false
+    },
+    {
+      "value": "a b@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "a b@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "a b@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": false
+    },
+    {
+      "value": "a\tb@b",
+      "valid": false
+    },
+    {
+      "value": "a\tb@example.com",
+      "valid": false
+    },
+    {
+      "value": "a\tb@",
+      "valid": false
+    },
+    {
+      "value": "a\tb@-b",
+      "valid": false
+    },
+    {
+      "value": "a\tb@b-",
+      "valid": false
+    },
+    {
+      "value": "a\tb@b_c",
+      "valid": false
+    },
+    {
+      "value": "a\tb@b..c",
+      "valid": false
+    },
+    {
+      "value": "a\tb@b.",
+      "valid": false
+    },
+    {
+      "value": "a\tb@localhost",
+      "valid": false
+    },
+    {
+      "value": "a\tb@ü",
+      "valid": false
+    },
+    {
+      "value": "a\tb@xn--bcher-kva.de",
+      "valid": false
+    },
+    {
+      "value": "a\tb@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "a\tb@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "a\tb@xn--a",
+      "valid": false
+    },
+    {
+      "value": "a\tb@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "a\tb@[127.0.0.1]",
+      "valid": false
+    },
+    {
+      "value": "a\tb@[IPv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "a\tb@[::1]",
+      "valid": false
+    },
+    {
+      "value": "a\tb@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "a\tb@1",
+      "valid": false
+    },
+    {
+      "value": "a\tb@1.2.3.4",
+      "valid": false
+    },
+    {
+      "value": "a\tb@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "a\tb@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "a\tb@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": false
+    },
+    {
+      "value": "a\\b@b",
+      "valid": false
+    },
+    {
+      "value": "a\\b@example.com",
+      "valid": false
+    },
+    {
+      "value": "a\\b@",
+      "valid": false
+    },
+    {
+      "value": "a\\b@-b",
+      "valid": false
+    },
+    {
+      "value": "a\\b@b-",
+      "valid": false
+    },
+    {
+      "value": "a\\b@b_c",
+      "valid": false
+    },
+    {
+      "value": "a\\b@b..c",
+      "valid": false
+    },
+    {
+      "value": "a\\b@b.",
+      "valid": false
+    },
+    {
+      "value": "a\\b@localhost",
+      "valid": false
+    },
+    {
+      "value": "a\\b@ü",
+      "valid": false
+    },
+    {
+      "value": "a\\b@xn--bcher-kva.de",
+      "valid": false
+    },
+    {
+      "value": "a\\b@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "a\\b@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "a\\b@xn--a",
+      "valid": false
+    },
+    {
+      "value": "a\\b@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "a\\b@[127.0.0.1]",
+      "valid": false
+    },
+    {
+      "value": "a\\b@[IPv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "a\\b@[::1]",
+      "valid": false
+    },
+    {
+      "value": "a\\b@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "a\\b@1",
+      "valid": false
+    },
+    {
+      "value": "a\\b@1.2.3.4",
+      "valid": false
+    },
+    {
+      "value": "a\\b@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "a\\b@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "a\\b@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": false
+    },
+    {
+      "value": "a+tag@b",
+      "valid": true
+    },
+    {
+      "value": "a+tag@example.com",
+      "valid": true
+    },
+    {
+      "value": "a+tag@",
+      "valid": false
+    },
+    {
+      "value": "a+tag@-b",
+      "valid": false
+    },
+    {
+      "value": "a+tag@b-",
+      "valid": false
+    },
+    {
+      "value": "a+tag@b_c",
+      "valid": false
+    },
+    {
+      "value": "a+tag@b..c",
+      "valid": false
+    },
+    {
+      "value": "a+tag@b.",
+      "valid": false
+    },
+    {
+      "value": "a+tag@localhost",
+      "valid": true
+    },
+    {
+      "value": "a+tag@ü",
+      "valid": false
+    },
+    {
+      "value": "a+tag@xn--bcher-kva.de",
+      "valid": true
+    },
+    {
+      "value": "a+tag@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "a+tag@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "a+tag@xn--a",
+      "valid": false
+    },
+    {
+      "value": "a+tag@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "a+tag@[127.0.0.1]",
+      "valid": true
+    },
+    {
+      "value": "a+tag@[IPv6:::1]",
+      "valid": true
+    },
+    {
+      "value": "a+tag@[::1]",
+      "valid": false
+    },
+    {
+      "value": "a+tag@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "a+tag@1",
+      "valid": true
+    },
+    {
+      "value": "a+tag@1.2.3.4",
+      "valid": true
+    },
+    {
+      "value": "a+tag@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": true
+    },
+    {
+      "value": "a+tag@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "a+tag@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": true
+    },
+    {
+      "value": "a%tag@b",
+      "valid": true
+    },
+    {
+      "value": "a%tag@example.com",
+      "valid": true
+    },
+    {
+      "value": "a%tag@",
+      "valid": false
+    },
+    {
+      "value": "a%tag@-b",
+      "valid": false
+    },
+    {
+      "value": "a%tag@b-",
+      "valid": false
+    },
+    {
+      "value": "a%tag@b_c",
+      "valid": false
+    },
+    {
+      "value": "a%tag@b..c",
+      "valid": false
+    },
+    {
+      "value": "a%tag@b.",
+      "valid": false
+    },
+    {
+      "value": "a%tag@localhost",
+      "valid": true
+    },
+    {
+      "value": "a%tag@ü",
+      "valid": false
+    },
+    {
+      "value": "a%tag@xn--bcher-kva.de",
+      "valid": true
+    },
+    {
+      "value": "a%tag@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "a%tag@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "a%tag@xn--a",
+      "valid": false
+    },
+    {
+      "value": "a%tag@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "a%tag@[127.0.0.1]",
+      "valid": true
+    },
+    {
+      "value": "a%tag@[IPv6:::1]",
+      "valid": true
+    },
+    {
+      "value": "a%tag@[::1]",
+      "valid": false
+    },
+    {
+      "value": "a%tag@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "a%tag@1",
+      "valid": true
+    },
+    {
+      "value": "a%tag@1.2.3.4",
+      "valid": true
+    },
+    {
+      "value": "a%tag@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": true
+    },
+    {
+      "value": "a%tag@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "a%tag@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": true
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@b",
+      "valid": true
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@example.com",
+      "valid": true
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@",
+      "valid": false
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@-b",
+      "valid": false
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@b-",
+      "valid": false
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@b_c",
+      "valid": false
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@b..c",
+      "valid": false
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@b.",
+      "valid": false
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@localhost",
+      "valid": true
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@ü",
+      "valid": false
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@xn--bcher-kva.de",
+      "valid": true
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@xn--a",
+      "valid": false
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@[127.0.0.1]",
+      "valid": true
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@[IPv6:::1]",
+      "valid": true
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@[::1]",
+      "valid": false
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@1",
+      "valid": true
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@1.2.3.4",
+      "valid": true
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": true
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "a!#$%&'*+-/=?^_`{|}~@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": true
+    },
+    {
+      "value": "<a@b",
+      "valid": false
+    },
+    {
+      "value": "<a@example.com",
+      "valid": false
+    },
+    {
+      "value": "<a@",
+      "valid": false
+    },
+    {
+      "value": "<a@-b",
+      "valid": false
+    },
+    {
+      "value": "<a@b-",
+      "valid": false
+    },
+    {
+      "value": "<a@b_c",
+      "valid": false
+    },
+    {
+      "value": "<a@b..c",
+      "valid": false
+    },
+    {
+      "value": "<a@b.",
+      "valid": false
+    },
+    {
+      "value": "<a@localhost",
+      "valid": false
+    },
+    {
+      "value": "<a@ü",
+      "valid": false
+    },
+    {
+      "value": "<a@xn--bcher-kva.de",
+      "valid": false
+    },
+    {
+      "value": "<a@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "<a@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "<a@xn--a",
+      "valid": false
+    },
+    {
+      "value": "<a@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "<a@[127.0.0.1]",
+      "valid": false
+    },
+    {
+      "value": "<a@[IPv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "<a@[::1]",
+      "valid": false
+    },
+    {
+      "value": "<a@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "<a@1",
+      "valid": false
+    },
+    {
+      "value": "<a@1.2.3.4",
+      "valid": false
+    },
+    {
+      "value": "<a@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "<a@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "<a@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": false
+    },
+    {
+      "value": "\"a@b\"@b",
+      "valid": true
+    },
+    {
+      "value": "\"a@b\"@example.com",
+      "valid": true
+    },
+    {
+      "value": "\"a@b\"@",
+      "valid": false
+    },
+    {
+      "value": "\"a@b\"@-b",
+      "valid": false
+    },
+    {
+      "value": "\"a@b\"@b-",
+      "valid": false
+    },
+    {
+      "value": "\"a@b\"@b_c",
+      "valid": false
+    },
+    {
+      "value": "\"a@b\"@b..c",
+      "valid": false
+    },
+    {
+      "value": "\"a@b\"@b.",
+      "valid": false
+    },
+    {
+      "value": "\"a@b\"@localhost",
+      "valid": true
+    },
+    {
+      "value": "\"a@b\"@ü",
+      "valid": false
+    },
+    {
+      "value": "\"a@b\"@xn--bcher-kva.de",
+      "valid": true
+    },
+    {
+      "value": "\"a@b\"@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "\"a@b\"@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "\"a@b\"@xn--a",
+      "valid": false
+    },
+    {
+      "value": "\"a@b\"@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "\"a@b\"@[127.0.0.1]",
+      "valid": true
+    },
+    {
+      "value": "\"a@b\"@[IPv6:::1]",
+      "valid": true
+    },
+    {
+      "value": "\"a@b\"@[::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a@b\"@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a@b\"@1",
+      "valid": true
+    },
+    {
+      "value": "\"a@b\"@1.2.3.4",
+      "valid": true
+    },
+    {
+      "value": "\"a@b\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": true
+    },
+    {
+      "value": "\"a@b\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "\"a@b\"@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": true
+    },
+    {
+      "value": "\"a\\\"b\"@b",
+      "valid": true
+    },
+    {
+      "value": "\"a\\\"b\"@example.com",
+      "valid": true
+    },
+    {
+      "value": "\"a\\\"b\"@",
+      "valid": false
+    },
+    {
+      "value": "\"a\\\"b\"@-b",
+      "valid": false
+    },
+    {
+      "value": "\"a\\\"b\"@b-",
+      "valid": false
+    },
+    {
+      "value": "\"a\\\"b\"@b_c",
+      "valid": false
+    },
+    {
+      "value": "\"a\\\"b\"@b..c",
+      "valid": false
+    },
+    {
+      "value": "\"a\\\"b\"@b.",
+      "valid": false
+    },
+    {
+      "value": "\"a\\\"b\"@localhost",
+      "valid": true
+    },
+    {
+      "value": "\"a\\\"b\"@ü",
+      "valid": false
+    },
+    {
+      "value": "\"a\\\"b\"@xn--bcher-kva.de",
+      "valid": true
+    },
+    {
+      "value": "\"a\\\"b\"@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "\"a\\\"b\"@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "\"a\\\"b\"@xn--a",
+      "valid": false
+    },
+    {
+      "value": "\"a\\\"b\"@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "\"a\\\"b\"@[127.0.0.1]",
+      "valid": true
+    },
+    {
+      "value": "\"a\\\"b\"@[IPv6:::1]",
+      "valid": true
+    },
+    {
+      "value": "\"a\\\"b\"@[::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a\\\"b\"@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a\\\"b\"@1",
+      "valid": true
+    },
+    {
+      "value": "\"a\\\"b\"@1.2.3.4",
+      "valid": true
+    },
+    {
+      "value": "\"a\\\"b\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": true
+    },
+    {
+      "value": "\"a\\\"b\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "\"a\\\"b\"@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": true
+    },
+    {
+      "value": "\"a\\b\"@b",
+      "valid": true
+    },
+    {
+      "value": "\"a\\b\"@example.com",
+      "valid": true
+    },
+    {
+      "value": "\"a\\b\"@",
+      "valid": false
+    },
+    {
+      "value": "\"a\\b\"@-b",
+      "valid": false
+    },
+    {
+      "value": "\"a\\b\"@b-",
+      "valid": false
+    },
+    {
+      "value": "\"a\\b\"@b_c",
+      "valid": false
+    },
+    {
+      "value": "\"a\\b\"@b..c",
+      "valid": false
+    },
+    {
+      "value": "\"a\\b\"@b.",
+      "valid": false
+    },
+    {
+      "value": "\"a\\b\"@localhost",
+      "valid": true
+    },
+    {
+      "value": "\"a\\b\"@ü",
+      "valid": false
+    },
+    {
+      "value": "\"a\\b\"@xn--bcher-kva.de",
+      "valid": true
+    },
+    {
+      "value": "\"a\\b\"@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "\"a\\b\"@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "\"a\\b\"@xn--a",
+      "valid": false
+    },
+    {
+      "value": "\"a\\b\"@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "\"a\\b\"@[127.0.0.1]",
+      "valid": true
+    },
+    {
+      "value": "\"a\\b\"@[IPv6:::1]",
+      "valid": true
+    },
+    {
+      "value": "\"a\\b\"@[::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a\\b\"@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a\\b\"@1",
+      "valid": true
+    },
+    {
+      "value": "\"a\\b\"@1.2.3.4",
+      "valid": true
+    },
+    {
+      "value": "\"a\\b\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": true
+    },
+    {
+      "value": "\"a\\b\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "\"a\\b\"@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": true
+    },
+    {
+      "value": "\"a\\ b\"@b",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@example.com",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@-b",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@b-",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@b_c",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@b..c",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@b.",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@localhost",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@ü",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@xn--bcher-kva.de",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@xn--a",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@[127.0.0.1]",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@[IPv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@[::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@1",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@1.2.3.4",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "\"a\\ b\"@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": false
+    },
+    {
+      "value": "\"a\tb\"@b",
+      "valid": true
+    },
+    {
+      "value": "\"a\tb\"@example.com",
+      "valid": true
+    },
+    {
+      "value": "\"a\tb\"@",
+      "valid": false
+    },
+    {
+      "value": "\"a\tb\"@-b",
+      "valid": false
+    },
+    {
+      "value": "\"a\tb\"@b-",
+      "valid": false
+    },
+    {
+      "value": "\"a\tb\"@b_c",
+      "valid": false
+    },
+    {
+      "value": "\"a\tb\"@b..c",
+      "valid": false
+    },
+    {
+      "value": "\"a\tb\"@b.",
+      "valid": false
+    },
+    {
+      "value": "\"a\tb\"@localhost",
+      "valid": true
+    },
+    {
+      "value": "\"a\tb\"@ü",
+      "valid": false
+    },
+    {
+      "value": "\"a\tb\"@xn--bcher-kva.de",
+      "valid": true
+    },
+    {
+      "value": "\"a\tb\"@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "\"a\tb\"@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "\"a\tb\"@xn--a",
+      "valid": false
+    },
+    {
+      "value": "\"a\tb\"@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "\"a\tb\"@[127.0.0.1]",
+      "valid": true
+    },
+    {
+      "value": "\"a\tb\"@[IPv6:::1]",
+      "valid": true
+    },
+    {
+      "value": "\"a\tb\"@[::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a\tb\"@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a\tb\"@1",
+      "valid": true
+    },
+    {
+      "value": "\"a\tb\"@1.2.3.4",
+      "valid": true
+    },
+    {
+      "value": "\"a\tb\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": true
+    },
+    {
+      "value": "\"a\tb\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "\"a\tb\"@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": true
+    },
+    {
+      "value": "\"a\nb\"@b",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@example.com",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@-b",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@b-",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@b_c",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@b..c",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@b.",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@localhost",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@ü",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@xn--bcher-kva.de",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@xn--a",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@[127.0.0.1]",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@[IPv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@[::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@1",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@1.2.3.4",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "\"a\nb\"@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": false
+    },
+    {
+      "value": "\"\"@b",
+      "valid": false
+    },
+    {
+      "value": "\"\"@example.com",
+      "valid": false
+    },
+    {
+      "value": "\"\"@",
+      "valid": false
+    },
+    {
+      "value": "\"\"@-b",
+      "valid": false
+    },
+    {
+      "value": "\"\"@b-",
+      "valid": false
+    },
+    {
+      "value": "\"\"@b_c",
+      "valid": false
+    },
+    {
+      "value": "\"\"@b..c",
+      "valid": false
+    },
+    {
+      "value": "\"\"@b.",
+      "valid": false
+    },
+    {
+      "value": "\"\"@localhost",
+      "valid": false
+    },
+    {
+      "value": "\"\"@ü",
+      "valid": false
+    },
+    {
+      "value": "\"\"@xn--bcher-kva.de",
+      "valid": false
+    },
+    {
+      "value": "\"\"@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "\"\"@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "\"\"@xn--a",
+      "valid": false
+    },
+    {
+      "value": "\"\"@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "\"\"@[127.0.0.1]",
+      "valid": false
+    },
+    {
+      "value": "\"\"@[IPv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "\"\"@[::1]",
+      "valid": false
+    },
+    {
+      "value": "\"\"@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "\"\"@1",
+      "valid": false
+    },
+    {
+      "value": "\"\"@1.2.3.4",
+      "valid": false
+    },
+    {
+      "value": "\"\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "\"\"@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "\"\"@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@b",
+      "valid": true
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@example.com",
+      "valid": true
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@-b",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@b-",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@b_c",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@b..c",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@b.",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@localhost",
+      "valid": true
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@ü",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@xn--bcher-kva.de",
+      "valid": true
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@xn--a",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@[127.0.0.1]",
+      "valid": true
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@[IPv6:::1]",
+      "valid": true
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@[::1]",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@1",
+      "valid": true
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@1.2.3.4",
+      "valid": true
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": true
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": true
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@b",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@example.com",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@-b",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@b-",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@b_c",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@b..c",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@b.",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@localhost",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@ü",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@xn--bcher-kva.de",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@xn--a",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@[127.0.0.1]",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@[IPv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@[::1]",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@1",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@1.2.3.4",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@b",
+      "valid": true
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@example.com",
+      "valid": true
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@-b",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@b-",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@b_c",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@b..c",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@b.",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@localhost",
+      "valid": true
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@ü",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@xn--bcher-kva.de",
+      "valid": true
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@xn--a",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@[127.0.0.1]",
+      "valid": true
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@[IPv6:::1]",
+      "valid": true
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@[::1]",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@1",
+      "valid": true
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@1.2.3.4",
+      "valid": true
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": true
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": true
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@b",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@example.com",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@-b",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@b-",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@b_c",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@b..c",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@b.",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@localhost",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@ü",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@xn--bcher-kva.de",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@XN--BCHER-KVA.de",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@ab--cd",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@xn--a",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@xn--ls8h.la",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@[127.0.0.1]",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@[IPv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@[::1]",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@[ipv6:::1]",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@1",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@1.2.3.4",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "valid": false
+    },
+    {
+      "value": "üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "valid": false
+    },
+    {
+      "value": "User <a@b>",
+      "valid": true
+    },
+    {
+      "value": "<a@b>",
+      "valid": false
+    },
+    {
+      "value": "User<a@b>",
+      "valid": false
+    },
+    {
+      "value": "User <a@b> ",
+      "valid": true
+    },
+    {
+      "value": " User <a@b>",
+      "valid": true
+    },
+    {
+      "value": " <a@b>",
+      "valid": true
+    },
+    {
+      "value": "a@b\n",
+      "valid": false
+    },
+    {
+      "value": "a@b\u0000",
+      "valid": false
+    },
+    {
+      "value": "a@b ",
+      "valid": false
+    },
+    {
+      "value": " a@b",
+      "valid": false
+    },
+    {
+      "value": "a@xn--ll-0ea.cat",
+      "valid": true
+    },
+    {
+      "value": "a@xn--abc-",
+      "valid": false
+    },
+    {
+      "value": "a@xn--0.pt",
+      "valid": false
+    },
+    {
+      "value": "a@[256.1.1.1]",
+      "valid": false
+    }
+  ]
+}

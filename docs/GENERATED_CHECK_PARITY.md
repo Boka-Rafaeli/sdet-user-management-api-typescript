@@ -33,9 +33,11 @@ The loader supports the current local-reference, JSON, object/array/string/
 integer/number/boolean schema subset. Pattern, composition, external/cyclic
 references, non-JSON media, new security declarations and response-header
 contracts fail before requests. It never silently ignores such constraints.
-The email adapter currently uses the project's original deterministic Python
-FormatChecker compatibility rule (contains `@`); this is the agreed migration
-oracle, not a claim that every email implementation accepts identical strings.
+The generated email adapter is separate from the deterministic Python FormatChecker
+rule (contains `@`). Its golden corpus was evaluated with the reference
+jsonschema_rs 0.51.0 validator used by Schemathesis 4.25.2. The corpus includes
+quoted local parts, display names, Unicode and domain literals. Passing this finite
+corpus does not prove equivalence for every possible RFC email string.
 
 The three generation phases are separate. Example/coverage cases are finite
 and schema-derived; fuzzing uses the configured example count, seed and a
